@@ -1,0 +1,275 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From CleverRobot:
+* proguard-project.txt
+From IOIOLib:
+* .DS_Store
+* doc/
+* doc/allclasses-frame.html
+* doc/allclasses-noframe.html
+* doc/constant-values.html
+* doc/deprecated-list.html
+* doc/help-doc.html
+* doc/index-files/
+* doc/index-files/index-1.html
+* doc/index-files/index-10.html
+* doc/index-files/index-11.html
+* doc/index-files/index-12.html
+* doc/index-files/index-13.html
+* doc/index-files/index-14.html
+* doc/index-files/index-15.html
+* doc/index-files/index-16.html
+* doc/index-files/index-17.html
+* doc/index-files/index-18.html
+* doc/index-files/index-19.html
+* doc/index-files/index-2.html
+* doc/index-files/index-3.html
+* doc/index-files/index-4.html
+* doc/index-files/index-5.html
+* doc/index-files/index-6.html
+* doc/index-files/index-7.html
+* doc/index-files/index-8.html
+* doc/index-files/index-9.html
+* doc/index.html
+* doc/ioio/
+* doc/ioio/lib/
+* doc/ioio/lib/api/
+* doc/ioio/lib/api/AnalogInput.html
+* doc/ioio/lib/api/Closeable.html
+* doc/ioio/lib/api/DigitalInput.Spec.Mode.html
+* doc/ioio/lib/api/DigitalInput.Spec.html
+* doc/ioio/lib/api/DigitalInput.html
+* doc/ioio/lib/api/DigitalOutput.Spec.Mode.html
+* doc/ioio/lib/api/DigitalOutput.Spec.html
+* doc/ioio/lib/api/DigitalOutput.html
+* doc/ioio/lib/api/IOIO.State.html
+* doc/ioio/lib/api/IOIO.VersionType.html
+* doc/ioio/lib/api/IOIO.html
+* doc/ioio/lib/api/IOIOConnection.html
+* doc/ioio/lib/api/IOIOFactory.html
+* doc/ioio/lib/api/IcspMaster.html
+* doc/ioio/lib/api/PulseInput.ClockRate.html
+* doc/ioio/lib/api/PulseInput.PulseMode.html
+* doc/ioio/lib/api/PulseInput.html
+* doc/ioio/lib/api/PwmOutput.html
+* doc/ioio/lib/api/SpiMaster.Config.html
+* doc/ioio/lib/api/SpiMaster.Rate.html
+* doc/ioio/lib/api/SpiMaster.Result.html
+* doc/ioio/lib/api/SpiMaster.html
+* doc/ioio/lib/api/TwiMaster.Rate.html
+* doc/ioio/lib/api/TwiMaster.Result.html
+* doc/ioio/lib/api/TwiMaster.html
+* doc/ioio/lib/api/Uart.Parity.html
+* doc/ioio/lib/api/Uart.StopBits.html
+* doc/ioio/lib/api/Uart.html
+* doc/ioio/lib/api/class-use/
+* doc/ioio/lib/api/class-use/AnalogInput.html
+* doc/ioio/lib/api/class-use/Closeable.html
+* doc/ioio/lib/api/class-use/DigitalInput.Spec.Mode.html
+* doc/ioio/lib/api/class-use/DigitalInput.Spec.html
+* doc/ioio/lib/api/class-use/DigitalInput.html
+* doc/ioio/lib/api/class-use/DigitalOutput.Spec.Mode.html
+* doc/ioio/lib/api/class-use/DigitalOutput.Spec.html
+* doc/ioio/lib/api/class-use/DigitalOutput.html
+* doc/ioio/lib/api/class-use/IOIO.State.html
+* doc/ioio/lib/api/class-use/IOIO.VersionType.html
+* doc/ioio/lib/api/class-use/IOIO.html
+* doc/ioio/lib/api/class-use/IOIOConnection.html
+* doc/ioio/lib/api/class-use/IOIOFactory.html
+* doc/ioio/lib/api/class-use/IcspMaster.html
+* doc/ioio/lib/api/class-use/PulseInput.ClockRate.html
+* doc/ioio/lib/api/class-use/PulseInput.PulseMode.html
+* doc/ioio/lib/api/class-use/PulseInput.html
+* doc/ioio/lib/api/class-use/PwmOutput.html
+* doc/ioio/lib/api/class-use/SpiMaster.Config.html
+* doc/ioio/lib/api/class-use/SpiMaster.Rate.html
+* doc/ioio/lib/api/class-use/SpiMaster.Result.html
+* doc/ioio/lib/api/class-use/SpiMaster.html
+* doc/ioio/lib/api/class-use/TwiMaster.Rate.html
+* doc/ioio/lib/api/class-use/TwiMaster.Result.html
+* doc/ioio/lib/api/class-use/TwiMaster.html
+* doc/ioio/lib/api/class-use/Uart.Parity.html
+* doc/ioio/lib/api/class-use/Uart.StopBits.html
+* doc/ioio/lib/api/class-use/Uart.html
+* doc/ioio/lib/api/exception/
+* doc/ioio/lib/api/exception/ConnectionLostException.html
+* doc/ioio/lib/api/exception/IncompatibilityException.html
+* doc/ioio/lib/api/exception/OutOfResourceException.html
+* doc/ioio/lib/api/exception/class-use/
+* doc/ioio/lib/api/exception/class-use/ConnectionLostException.html
+* doc/ioio/lib/api/exception/class-use/IncompatibilityException.html
+* doc/ioio/lib/api/exception/class-use/OutOfResourceException.html
+* doc/ioio/lib/api/exception/package-frame.html
+* doc/ioio/lib/api/exception/package-summary.html
+* doc/ioio/lib/api/exception/package-tree.html
+* doc/ioio/lib/api/exception/package-use.html
+* doc/ioio/lib/api/package-frame.html
+* doc/ioio/lib/api/package-summary.html
+* doc/ioio/lib/api/package-tree.html
+* doc/ioio/lib/api/package-use.html
+* doc/ioio/lib/spi/
+* doc/ioio/lib/spi/IOIOConnectionBootstrap.html
+* doc/ioio/lib/spi/IOIOConnectionFactory.html
+* doc/ioio/lib/spi/NoRuntimeSupportException.html
+* doc/ioio/lib/spi/class-use/
+* doc/ioio/lib/spi/class-use/IOIOConnectionBootstrap.html
+* doc/ioio/lib/spi/class-use/IOIOConnectionFactory.html
+* doc/ioio/lib/spi/class-use/NoRuntimeSupportException.html
+* doc/ioio/lib/spi/package-frame.html
+* doc/ioio/lib/spi/package-summary.html
+* doc/ioio/lib/spi/package-tree.html
+* doc/ioio/lib/spi/package-use.html
+* doc/ioio/lib/util/
+* doc/ioio/lib/util/AbstractIOIOActivity.html
+* doc/ioio/lib/util/BaseIOIOLooper.html
+* doc/ioio/lib/util/IOIOApplicationHelper.html
+* doc/ioio/lib/util/IOIOConnectionRegistry.html
+* doc/ioio/lib/util/IOIOLooper.html
+* doc/ioio/lib/util/IOIOLooperProvider.html
+* doc/ioio/lib/util/android/
+* doc/ioio/lib/util/android/ContextWrapperDependent.html
+* doc/ioio/lib/util/android/IOIOActivity.html
+* doc/ioio/lib/util/android/IOIOAndroidApplicationHelper.html
+* doc/ioio/lib/util/android/IOIOService.html
+* doc/ioio/lib/util/android/class-use/
+* doc/ioio/lib/util/android/class-use/ContextWrapperDependent.html
+* doc/ioio/lib/util/android/class-use/IOIOActivity.html
+* doc/ioio/lib/util/android/class-use/IOIOAndroidApplicationHelper.html
+* doc/ioio/lib/util/android/class-use/IOIOService.html
+* doc/ioio/lib/util/android/package-frame.html
+* doc/ioio/lib/util/android/package-summary.html
+* doc/ioio/lib/util/android/package-tree.html
+* doc/ioio/lib/util/android/package-use.html
+* doc/ioio/lib/util/class-use/
+* doc/ioio/lib/util/class-use/AbstractIOIOActivity.html
+* doc/ioio/lib/util/class-use/BaseIOIOLooper.html
+* doc/ioio/lib/util/class-use/IOIOApplicationHelper.html
+* doc/ioio/lib/util/class-use/IOIOConnectionRegistry.html
+* doc/ioio/lib/util/class-use/IOIOLooper.html
+* doc/ioio/lib/util/class-use/IOIOLooperProvider.html
+* doc/ioio/lib/util/package-frame.html
+* doc/ioio/lib/util/package-summary.html
+* doc/ioio/lib/util/package-tree.html
+* doc/ioio/lib/util/package-use.html
+* doc/overview-frame.html
+* doc/overview-summary.html
+* doc/overview-tree.html
+* doc/package-list
+* doc/resources/
+* doc/resources/inherit.gif
+* doc/serialized-form.html
+* doc/stylesheet.css
+* proguard-project.txt
+From IOIOiRobot2:
+* .DS_Store
+* doc/
+* doc/allclasses-frame.html
+* doc/allclasses-noframe.html
+* doc/constant-values.html
+* doc/deprecated-list.html
+* doc/help-doc.html
+* doc/index-files/
+* doc/index-files/index-1.html
+* doc/index-files/index-10.html
+* doc/index-files/index-11.html
+* doc/index-files/index-2.html
+* doc/index-files/index-3.html
+* doc/index-files/index-4.html
+* doc/index-files/index-5.html
+* doc/index-files/index-6.html
+* doc/index-files/index-7.html
+* doc/index-files/index-8.html
+* doc/index-files/index-9.html
+* doc/index.html
+* doc/org/
+* doc/org/jointheleague/
+* doc/org/jointheleague/erik/
+* doc/org/jointheleague/erik/irobot/
+* doc/org/jointheleague/erik/irobot/IRobotCreateAdapter.html
+* doc/org/jointheleague/erik/irobot/IRobotCreateInterface.html
+* doc/org/jointheleague/erik/irobot/SerialConnection.html
+* doc/org/jointheleague/erik/irobot/SimpleIRobotCreate.html
+* doc/org/jointheleague/erik/irobot/class-use/
+* doc/org/jointheleague/erik/irobot/class-use/IRobotCreateAdapter.html
+* doc/org/jointheleague/erik/irobot/class-use/IRobotCreateInterface.html
+* doc/org/jointheleague/erik/irobot/class-use/SerialConnection.html
+* doc/org/jointheleague/erik/irobot/class-use/SimpleIRobotCreate.html
+* doc/org/jointheleague/erik/irobot/package-frame.html
+* doc/org/jointheleague/erik/irobot/package-summary.html
+* doc/org/jointheleague/erik/irobot/package-tree.html
+* doc/org/jointheleague/erik/irobot/package-use.html
+* doc/overview-tree.html
+* doc/package-list
+* doc/resources/
+* doc/resources/background.gif
+* doc/resources/tab.gif
+* doc/resources/titlebar.gif
+* doc/resources/titlebar_end.gif
+* doc/stylesheet.css
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:22.1.1
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In IOIOLib:
+* AndroidManifest.xml => iOIOLib/src/main/AndroidManifest.xml
+* assets/ => iOIOLib/src/main/assets
+* res/ => iOIOLib/src/main/res/
+* src/ => iOIOLib/src/main/java/
+In IOIOiRobot2:
+* AndroidManifest.xml => iOIOiRobot2/src/main/AndroidManifest.xml
+* assets/ => iOIOiRobot2/src/main/assets
+* res/ => iOIOiRobot2/src/main/res/
+* src/ => iOIOiRobot2/src/main/java/
+* src/.DS_Store => iOIOiRobot2/src/main/resources/.DS_Store
+* src/org/.DS_Store => iOIOiRobot2/src/main/resources/org/.DS_Store
+In CleverRobot:
+* AndroidManifest.xml => cleverRobot/src/main/AndroidManifest.xml
+* assets/ => cleverRobot/src/main/assets
+* res/ => cleverRobot/src/main/res/
+* src/ => cleverRobot/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

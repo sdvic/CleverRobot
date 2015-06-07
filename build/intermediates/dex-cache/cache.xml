@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/ecolban/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-31b6c1b8044d0d77f937260238859459f37b4614.jar" />
+    </item>
+    <item
+        jar="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/exploded-aar/CleverRobot/iOIOLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="91b6b365fcebfee27dd06cd37a32f2bac5ac1715">
+        <dex dex="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/pre-dexed/debug/classes-b24281cee5427ad2687ce4c5d8c6cc6abdeb2b2c.jar" />
+    </item>
+    <item
+        jar="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-671524566836840bfe024cd2b395d1a25e21d588.jar" />
+    </item>
+    <item
+        jar="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/exploded-aar/CleverRobot/iOIOiRobot2/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="92b00fabe521fc82bcb084f81caf7dfa7a30e5ca">
+        <dex dex="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/pre-dexed/debug/classes-ab0aca2557b78291f44a0ef3c880694fa83484d7.jar" />
+    </item>
+    <item
+        jar="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/cleverRobot/build/intermediates/pre-dexed/debug/classes-b3e751a44f073f17b52f42dfb4e52f40f2d38a3c.jar" />
+    </item>
+
+</items>

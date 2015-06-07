@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/iOIOiRobot2/build/intermediates/bundles/debug/res/values/values.xml -->
+    <eat-comment/>
+    <string name="app_name">MainActivity</string>
+    <!-- From: file:/Users/ecolban/JavaProjects/AndroidStudioProjects/CleverRobot/iOIOiRobot2/build/intermediates/exploded-aar/CleverRobot/iOIOLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="AppTheme" parent="android:Theme.Light"/>
+</resources>

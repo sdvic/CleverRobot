@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Clever Robot</string>
+    <string name="app_name">Clever Robot</string>
+    <string name="wait_ioio">Waiting for Clever Robot to connect&#8230;</string>
+    <string name="ioio_connected">IOIO connected!</string>
+    <string name="wait_create">Waiting for Clever Robot Create to connect&#8230;</string>
+    <string name="create_connected">Clever Robot connected!</string>
+    <string name="ioio_disconnected">Clever Robot disconnected!</string>
+    <string name="zero">0</string>
+</resources>
