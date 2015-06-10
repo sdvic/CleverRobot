@@ -23,7 +23,7 @@ public final class SerialConnection {
     private static final int OI_MODE_PASSIVE = 1;
     private static final int SENSORS_OI_MODE = 35;
     private static final int SENSOR_COMMAND = 142;
-    private static final int BAUD_RATE = 19200;
+    private static final int BAUD_RATE = 115200;
     private IOIO ioio;
     private InputStream input;
     private OutputStream output;
@@ -228,7 +228,7 @@ public final class SerialConnection {
             int low = input.read(); // 0 <= low <= 0xFF
             int unsigned = (high << 8) | low; // 0 <= unsigned <= 0xFFFF
             if (debug) {
-                Log.d(TAG, String.format("Read unsigned word: %d|%d = %", high, low, unsigned));
+                Log.d(TAG, String.format("Read unsigned word: %d|%d = %s", high, low, unsigned));
             }
             return unsigned;
         } catch (IOException ex) {

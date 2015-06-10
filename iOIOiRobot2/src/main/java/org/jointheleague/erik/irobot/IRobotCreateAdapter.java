@@ -20,7 +20,7 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
      * instance.
      *
      * @param delegate a non-null instance of IRobotCreateInterface to which
-     * method calls are forwarded.
+     *                 method calls are forwarded.
      */
     public IRobotCreateAdapter(IRobotCreateInterface delegate) {
         if (delegate == null) {
@@ -29,20 +29,15 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         this.delegate = delegate;
     }
 
-    public void demo(int demoType)
-            throws ConnectionLostException {
-        delegate.demo(demoType);
-    }
-
 
     public void drive(int velocity, int radius)
             throws ConnectionLostException {
         delegate.drive(velocity, radius);
     }
 
-    public void driveDirect(int rightVelocity, int leftVelocity)
+    public void driveDirect(int leftVelocity, int rightVelocity)
             throws ConnectionLostException {
-        delegate.driveDirect(rightVelocity, leftVelocity);
+        delegate.driveDirect(leftVelocity, rightVelocity);
     }
 
     public void full() throws ConnectionLostException {
@@ -63,10 +58,6 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
 
     public int getBatteryTemperature() {
         return delegate.getBatteryTemperature();
-    }
-
-    public int getCargoBayAnalogSignal() {
-        return delegate.getCargoBayAnalogSignal();
     }
 
     public int getChargingState() {
@@ -101,12 +92,10 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.getInfraredByte();
     }
 
-    @Override
     public int getInfraredByteLeft() {
         return delegate.getInfraredByteLeft();
     }
 
-    @Override
     public int getInfraredByteRight() {
         return delegate.getInfraredByteRight();
     }
@@ -155,26 +144,6 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.isBumpRight();
     }
 
-    public boolean isCargoBayDeviceDetectBaudRateChangeHigh() {
-        return delegate.isCargoBayDeviceDetectBaudRateChangeHigh();
-    }
-
-    public boolean isCargoBayDigitalInput0High() {
-        return delegate.isCargoBayDigitalInput0High();
-    }
-
-    public boolean isCargoBayDigitalInput1High() {
-        return delegate.isCargoBayDigitalInput1High();
-    }
-
-    public boolean isCargoBayDigitalInput2High() {
-        return delegate.isCargoBayDigitalInput2High();
-    }
-
-    public boolean isCargoBayDigitalInput3High() {
-        return delegate.isCargoBayDigitalInput3High();
-    }
-
     public boolean isCliffFrontLeft() {
         return delegate.isCliffFrontLeft();
     }
@@ -215,12 +184,12 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.isLowSideDriver2Overcurrent();
     }
 
-    public boolean isPlayButtonDown() {
-        return delegate.isPlayButtonDown();
+    public boolean isSpotButtonDown() {
+        return delegate.isSpotButtonDown();
     }
 
     public boolean isRightWheelOvercurrent() {
-        return isRightWheelOvercurrent();
+        return delegate.isRightWheelOvercurrent();
     }
 
     public boolean isSongPlaying() {
@@ -235,10 +204,6 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.isWall();
     }
 
-    public boolean isWheelDropCaster() {
-        return delegate.isWheelDropCaster();
-    }
-
     public boolean isWheelDropLeft() {
         return delegate.isWheelDropLeft();
     }
@@ -247,20 +212,8 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.isWheelDropRight();
     }
 
-    public void leds(boolean powerLedOn, boolean playLedOn, boolean advanceLedOn) throws ConnectionLostException {
-        delegate.leds(powerLedOn, playLedOn, advanceLedOn);
-    }
-
-    public void leds(int powerColor, int powerIntensity, boolean playLedOn, boolean advanceLedOn) throws ConnectionLostException {
-        delegate.leds(powerColor, powerIntensity, playLedOn, advanceLedOn);
-    }
-
-    public void ledsToggle(boolean togglePower, boolean togglePlay, boolean toggleAdvance) throws ConnectionLostException {
-        delegate.ledsToggle(togglePower, togglePlay, toggleAdvance);
-    }
-
-    public void lowSideDrivers(boolean lowSideDriver0On, boolean lowSideDriver1On, boolean lowSideDriver2On) throws ConnectionLostException {
-        delegate.lowSideDrivers(lowSideDriver0On, lowSideDriver1On, lowSideDriver2On);
+    public void leds(int powerColor, int powerIntensity, boolean spotLedOn) throws ConnectionLostException {
+        delegate.leds(powerColor, powerIntensity, spotLedOn);
     }
 
 
@@ -268,16 +221,14 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         delegate.playSong(songNumber);
     }
 
-    public void pwmLowSideDrivers(int lowSideDriver0DutyCycle, int lowSideDriver1DutyCycle, int lowSideDriver2DutyCycle) throws ConnectionLostException {
-        delegate.pwmLowSideDrivers(lowSideDriver0DutyCycle, lowSideDriver1DutyCycle, lowSideDriver2DutyCycle);
-    }
 
     public void readSensors(int sensorId) throws ConnectionLostException {
         delegate.readSensors(sensorId);
     }
 
-    public void readSensors(int[] sensorIds) throws IllegalArgumentException, ConnectionLostException {
-        delegate.readSensors(sensorIds);
+
+    public void reset() throws ConnectionLostException {
+        delegate.reset();
     }
 
     public void safe() throws ConnectionLostException {
@@ -293,8 +244,12 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         delegate.song(songNumber, notesAndDurations, startIndex, length);
     }
 
-    public void waitButtonPressed(boolean playButton, boolean beep) throws ConnectionLostException {
-        delegate.waitButtonPressed(playButton, beep);
+    public void stop() throws ConnectionLostException {
+        delegate.stop();
+    }
+
+    public void waitButtonPressed(boolean spotButton, boolean beep) throws ConnectionLostException {
+        delegate.waitButtonPressed(spotButton, beep);
     }
 
     public void closeConnection() {
