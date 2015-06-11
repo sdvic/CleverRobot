@@ -132,10 +132,6 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.getWallSignal();
     }
 
-    public boolean isAdvanceButtonDown() {
-        return delegate.isAdvanceButtonDown();
-    }
-
     public boolean isBumpLeft() {
         return delegate.isBumpLeft();
     }
@@ -172,16 +168,8 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         return delegate.isLeftWheelOvercurrent();
     }
 
-    public boolean isLowSideDriver0Overcurrent() {
-        return delegate.isLowSideDriver0Overcurrent();
-    }
-
-    public boolean isLowSideDriver1Overcurrent() {
-        return delegate.isLowSideDriver1Overcurrent();
-    }
-
-    public boolean isLowSideDriver2Overcurrent() {
-        return delegate.isLowSideDriver2Overcurrent();
+    public boolean isWheelOvercurrentMainBrush() {
+        return delegate.isWheelOvercurrentMainBrush();
     }
 
     public boolean isSpotButtonDown() {
@@ -248,8 +236,8 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
         delegate.stop();
     }
 
-    public void waitButtonPressed(boolean spotButton, boolean beep) throws ConnectionLostException {
-        delegate.waitButtonPressed(spotButton, beep);
+    public void waitButtonPressed(boolean beep) throws ConnectionLostException {
+        delegate.waitButtonPressed(beep);
     }
 
     public void closeConnection() {
@@ -277,8 +265,8 @@ public class IRobotCreateAdapter implements IRobotCreateInterface {
     }
 
     @Override
-    public boolean getStasis() {
-        return delegate.getStasis();
+    public boolean isStasis() {
+        return delegate.isStasis();
     }
 
     @Override

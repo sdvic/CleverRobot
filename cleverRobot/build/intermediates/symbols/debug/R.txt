@@ -11,7 +11,8 @@ int string create_connected 0x7f040001
 int string hello 0x7f040002
 int string ioio_connected 0x7f040003
 int string ioio_disconnected 0x7f040004
-int string wait_create 0x7f040005
-int string wait_ioio 0x7f040006
-int string zero 0x7f040007
+int string pausing 0x7f040005
+int string wait_create 0x7f040006
+int string wait_ioio 0x7f040007
+int string zero 0x7f040008
 int style AppTheme 0x7f050000

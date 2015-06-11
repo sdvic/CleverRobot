@@ -97,9 +97,9 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      */
     private static final int COMMAND_LEDS = 139;
     /**
-     * Mask identifying the Spot LED.
+     * Mask identifying the Spot LED and the Spot button.
      */
-    private static final int LEDS_SPOT = 2;
+    private static final int SPOT_BUTTON_LED_ID = 2;
     /**
      * This command lets you specify up to sixteen songs to the OI that you can
      * play at a later time. Each song is associated with a song number. The
@@ -155,64 +155,59 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      * Time in ms to pause after sending a command to the Create.
      */
     private static final int AFTER_COMMAND_PAUSE_TIME = 20;
-    // Indices to an array containing the sensor values.
-    private static final int SENSOR_IDX_advanceButton = 0;
-    private static final int SENSOR_IDX_angle = 1;
-    private static final int SENSOR_IDX_batteryCapacity = 2;
-    private static final int SENSOR_IDX_batteryCharge = 3;
-    private static final int SENSOR_IDX_batteryTemperature = 4;
-    private static final int SENSOR_IDX_bumpLeft = 5;
-    private static final int SENSOR_IDX_bumpRight = 6;
-    private static final int SENSOR_IDX_chargingState = 8;
-    private static final int SENSOR_IDX_cliffFrontLeft = 9;
-    private static final int SENSOR_IDX_cliffFrontLeftSignal = 10;
-    private static final int SENSOR_IDX_cliffFrontRight = 11;
-    private static final int SENSOR_IDX_cliffFrontRightSignal = 12;
-    private static final int SENSOR_IDX_cliffLeft = 13;
-    private static final int SENSOR_IDX_cliffLeftSignal = 14;
-    private static final int SENSOR_IDX_cliffRight = 15;
-    private static final int SENSOR_IDX_cliffRightSignal = 16;
-    private static final int SENSOR_IDX_current = 17;
-    private static final int SENSOR_IDX_distance = 18;
-    private static final int SENSOR_IDX_encoderCountLeft = 19;
-    private static final int SENSOR_IDX_encoderCountRight = 20;
-    private static final int SENSOR_IDX_homeBaseChargerAvailable = 21;
-    private static final int SENSOR_IDX_infraredByte = 22;
-    private static final int SENSOR_IDX_infraredByteLeft = 23;
-    private static final int SENSOR_IDX_infraredByteRight = 24;
-    private static final int SENSOR_IDX_internalChargerAvailable = 25;
-    private static final int SENSOR_IDX_wheelOvercurrentLeft = 26;
-    private static final int SENSOR_IDX_lightBumper = 27;
-    private static final int SENSOR_IDX_lightBumpSignalLeft = 28;
-    private static final int SENSOR_IDX_lightBumpSignalLeftFront = 29;
-    private static final int SENSOR_IDX_lightBumpSignalLeftCenter = 30;
-    private static final int SENSOR_IDX_lightBumpSignalRightCenter = 31;
-    private static final int SENSOR_IDX_lightBumpSignalRightFront = 32;
-    private static final int SENSOR_IDX_lightBumpSignalRight = 33;
-    private static final int SENSOR_IDX_lowSideDriver0Overcurrent = 34;
-    private static final int SENSOR_IDX_wheelOvercurrentSideBrush = 35;
-    private static final int SENSOR_IDX_wheelOvercurrentMainBrush = 36;
-    private static final int SENSOR_IDX_motorCurrentLeft = 37;
-    private static final int SENSOR_IDX_motorCurrentRight = 38;
-    private static final int SENSOR_IDX_numberOfStreamPackets = 39;
-    private static final int SENSOR_IDX_oiMode = 40;
-    private static final int SENSOR_IDX_buttons = 41;
-    private static final int SENSOR_IDX_requestedLeftVelocity = 42;
-    private static final int SENSOR_IDX_requestedRadius = 43;
-    private static final int SENSOR_IDX_requestedRightVelocity = 44;
-    private static final int SENSOR_IDX_requestedVelocity = 45;
-    private static final int SENSOR_IDX_wheelOvercurrentRight = 46;
-    private static final int SENSOR_IDX_songNumber = 47;
-    private static final int SENSOR_IDX_songPlaying = 48;
-    private static final int SENSOR_IDX_stasis = 49;
-    private static final int SENSOR_IDX_virtualWall = 50;
-    private static final int SENSOR_IDX_voltage = 51;
-    private static final int SENSOR_IDX_wall = 52;
-    private static final int SENSOR_IDX_wallSignal = 53;
-    private static final int SENSOR_IDX_wheelDropLeft = 54;
-    private static final int SENSOR_IDX_wheelDropRight = 55;
-    private static final int SENSOR_IDX_MAX = 56;
-    private final int[] sensorValues = new int[SENSOR_IDX_MAX];
+    // Sensor values previously read:
+    private int angle;
+    private int batteryCapacity;
+    private int batteryCharge;
+    private int batteryTemperature;
+    private boolean bumpLeft;
+    private boolean bumpRight;
+    private int chargingState;
+    private boolean cliffFrontLeft;
+    private int cliffSignalLeftFront;
+    private boolean cliffFrontRight;
+    private int cliffSignalRightFront;
+    private boolean cliffLeft;
+    private int cliffSignalLeft;
+    private boolean cliffRight;
+    private int cliffSignalRight;
+    private int current;
+    private int distance;
+    private int encoderCountLeft;
+    private int encoderCountRight;
+    private boolean homeBaseChargerAvailable;
+    private int infraredByte;
+    private int infraredByteLeft;
+    private int infraredByteRight;
+    private boolean internalChargerAvailable;
+    private boolean wheelOvercurrentLeft;
+    private int lightBump;
+    private int lightBumpSignalLeft;
+    private int lightBumpSignalLeftFront;
+    private int lightBumpSignalLeftCenter;
+    private int lightBumpSignalRightCenter;
+    private int lightBumpSignalRightFront;
+    private int lightBumpSignalRight;
+    private boolean wheelOvercurrentSideBrush;
+    private boolean wheelOvercurrentMainBrush;
+    private int motorCurrentLeft;
+    private int motorCurrentRight;
+    private int oiMode;
+    private int buttons;
+    private int requestedVelocityLeft;
+    private int requestedRadius;
+    private int requestedVelocityRight;
+    private int requestedVelocity;
+    private boolean wheelOvercurrentRight;
+    private int songNumber;
+    private boolean songPlaying;
+    private boolean stasis;
+    private boolean virtualWall;
+    private int voltage;
+    private boolean wall;
+    private int wallSignal;
+    private boolean wheelDropLeft;
+    private boolean wheelDropRight;
     private SerialConnection serialConnection;
     private int powerLedColor;
     private int powerLedIntensity;
@@ -268,7 +263,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
             safe();
         }
         if (waitButton) {
-            waitButtonPressed(true, true);
+            waitButtonPressed(true);
         }
     }
 
@@ -317,226 +312,217 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
     }
 
     public synchronized int getAngle() {
-        return getSensorInteger(SENSOR_IDX_angle);
+        return angle;
     }
 
     public synchronized int getBatteryCapacity() {
-        return getSensorInteger(SENSOR_IDX_batteryCapacity);
+        return batteryCapacity;
     }
 
     public synchronized int getBatteryCharge() {
-        return getSensorInteger(SENSOR_IDX_batteryCharge);
+        return batteryCharge;
     }
 
     public synchronized int getBatteryTemperature() {
-        return getSensorInteger(SENSOR_IDX_batteryTemperature);
+        return batteryTemperature;
     }
 
     public synchronized int getChargingState() {
-        return getSensorInteger(SENSOR_IDX_chargingState);
+        return chargingState;
     }
 
     public synchronized int getCliffSignalLeftFront() {
-        return getSensorInteger(SENSOR_IDX_cliffFrontLeftSignal);
+        return cliffSignalLeftFront;
     }
 
     public synchronized int getCliffSignalRightFront() {
-        return getSensorInteger(SENSOR_IDX_cliffFrontRightSignal);
+        return cliffSignalRightFront;
     }
 
     public synchronized int getCliffSignalLeft() {
-        return getSensorInteger(SENSOR_IDX_cliffLeftSignal);
+        return cliffSignalLeft;
     }
 
     public synchronized int getCliffSignalRight() {
-        return getSensorInteger(SENSOR_IDX_cliffRightSignal);
+        return cliffSignalRight;
     }
 
     public synchronized int getCurrent() {
-        return getSensorInteger(SENSOR_IDX_current);
+        return current;
     }
 
     public synchronized int getDistance() {
-        return getSensorInteger(SENSOR_IDX_distance);
+        return distance;
     }
 
     public int getEncoderCountLeft() {
-        return getSensorInteger(SENSOR_IDX_encoderCountLeft);
+        return encoderCountLeft;
     }
 
     public int getEncoderCountRight() {
-        return getSensorInteger(SENSOR_IDX_encoderCountRight);
+        return encoderCountRight;
     }
 
     public synchronized int getInfraredByte() {
-        return getSensorInteger(SENSOR_IDX_infraredByte);
+        return infraredByte;
     }
 
     public int getInfraredByteLeft() {
-        return getSensorInteger(SENSOR_IDX_infraredByteLeft);
+        return infraredByteLeft;
     }
 
     public int getInfraredByteRight() {
-        return getSensorInteger(SENSOR_IDX_infraredByteRight);
+        return infraredByteRight;
     }
 
     public synchronized int getOiMode() {
-        return getSensorInteger(SENSOR_IDX_oiMode);
+        return oiMode;
     }
 
     public synchronized int getRequestedVelocityLeft() {
-        return getSensorInteger(SENSOR_IDX_requestedLeftVelocity);
+        return requestedVelocityLeft;
     }
 
     public synchronized int getRequestedRadius() {
-        return getSensorInteger(SENSOR_IDX_requestedRadius);
+        return requestedRadius;
     }
 
     public synchronized int getRequestedVelocityRight() {
-        return getSensorInteger(SENSOR_IDX_requestedRightVelocity);
+        return requestedVelocityRight;
     }
 
     public synchronized int getRequestedVelocity() {
-        return getSensorInteger(SENSOR_IDX_requestedVelocity);
+        return requestedVelocity;
     }
 
-    private boolean getSensorBoolean(int sensorId) {
-        return sensorValues[sensorId] != 0;
-    }
-
-    private int getSensorInteger(int sensorId) {
-        return sensorValues[sensorId];
-    }
+//    private boolean getSensorBoolean(int sensorId) {
+//        return sensorValues[sensorId] != 0;
+//    }
+//
+//    private int getSensorInteger(int sensorId) {
+//        return sensorValues[sensorId];
+//    }
 
     public synchronized int getSongNumber() {
-        return getSensorInteger(SENSOR_IDX_songNumber);
+        return songNumber;
     }
 
     public synchronized int getVoltage() {
-        return getSensorInteger(SENSOR_IDX_voltage);
+        return voltage;
     }
 
     @Override
     public int getMotorCurrentLeft() {
-        return getSensorInteger(SENSOR_IDX_motorCurrentLeft);
+        return motorCurrentLeft;
     }
 
     @Override
     public int getMotorCurrentRight() {
-        return getSensorInteger(SENSOR_IDX_motorCurrentRight);
+        return motorCurrentRight;
     }
 
     @Override
-    public boolean getStasis() {
-        return getSensorBoolean(SENSOR_IDX_stasis);
+    public boolean isStasis() {
+        return stasis;
     }
 
     public synchronized int getWallSignal() {
-        return getSensorInteger(SENSOR_IDX_wallSignal);
-    }
-
-    public synchronized boolean isAdvanceButtonDown() {
-        return getSensorBoolean(SENSOR_IDX_advanceButton);
+        return wallSignal;
     }
 
     public synchronized boolean isBumpLeft() {
-        return getSensorBoolean(SENSOR_IDX_bumpLeft);
+        return bumpLeft;
     }
 
     public synchronized boolean isBumpRight() {
-        return getSensorBoolean(SENSOR_IDX_bumpRight);
+        return bumpRight;
     }
 
     @Override
     public boolean isLightBump() {
-        int lightBumps = getSensorInteger(SENSOR_IDX_lightBumper);
-        return (lightBumps & 0x3f) != 0;
+        return (lightBump & 0x3F) != 0;
     }
 
     @Override
     public int[] getLightBumps() {
         int[] result = new int[6];
-        int bumps = getSensorInteger(SENSOR_IDX_lightBumper);
-        result[0] = (bumps & 0x1) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalLeft) : 0;
-        result[1] = (bumps & 0x2) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalLeftFront) : 0;
-        result[2] = (bumps & 0x4) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalLeftCenter) : 0;
-        result[3] = (bumps & 0x8) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalRightCenter) : 0;
-        result[4] = (bumps & 0x10) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalRightFront) : 0;
-        result[5] = (bumps & 0x20) != 0 ? getSensorInteger(SENSOR_IDX_lightBumpSignalRight) : 0;
+        int bumps = lightBump;
+        result[0] = (bumps & 0x1) != 0 ? lightBumpSignalLeft : 0;
+        result[1] = (bumps & 0x2) != 0 ? lightBumpSignalLeftFront : 0;
+        result[2] = (bumps & 0x4) != 0 ? lightBumpSignalLeftCenter : 0;
+        result[3] = (bumps & 0x8) != 0 ? lightBumpSignalRightCenter : 0;
+        result[4] = (bumps & 0x10) != 0 ? lightBumpSignalRightFront : 0;
+        result[5] = (bumps & 0x20) != 0 ? lightBumpSignalRight : 0;
         return result;
     }
 
     public synchronized boolean isCliffFrontLeft() {
-        return getSensorBoolean(SENSOR_IDX_cliffFrontLeft);
+        return cliffFrontLeft;
     }
 
     public synchronized boolean isCliffFrontRight() {
-        return getSensorBoolean(SENSOR_IDX_cliffFrontRight);
+        return cliffFrontRight;
     }
 
     public synchronized boolean isCliffLeft() {
-        return getSensorBoolean(SENSOR_IDX_cliffLeft);
+        return cliffLeft;
     }
 
     public synchronized boolean isCliffRight() {
-        return getSensorBoolean(SENSOR_IDX_cliffRight);
+        return cliffRight;
     }
 
     public synchronized boolean isHomeBaseChargerAvailable() {
-        return getSensorBoolean(SENSOR_IDX_homeBaseChargerAvailable);
+        return homeBaseChargerAvailable;
     }
 
     public synchronized boolean isInternalChargerAvailable() {
-        return getSensorBoolean(SENSOR_IDX_internalChargerAvailable);
+        return internalChargerAvailable;
     }
 
     public synchronized boolean isLeftWheelOvercurrent() {
-        return getSensorBoolean(SENSOR_IDX_wheelOvercurrentLeft);
+        return wheelOvercurrentLeft;
     }
 
-    public synchronized boolean isLowSideDriver0Overcurrent() {
-        return getSensorBoolean(SENSOR_IDX_lowSideDriver0Overcurrent);
+    public synchronized boolean isWheelOvercurrentSideBrush() {
+        return wheelOvercurrentSideBrush;
     }
 
-    public synchronized boolean isLowSideDriver1Overcurrent() {
-        return getSensorBoolean(SENSOR_IDX_wheelOvercurrentSideBrush);
-    }
-
-    public synchronized boolean isLowSideDriver2Overcurrent() {
-        return getSensorBoolean(SENSOR_IDX_wheelOvercurrentMainBrush);
+    public synchronized boolean isWheelOvercurrentMainBrush() {
+        return wheelOvercurrentMainBrush;
     }
 
     public synchronized boolean isRightWheelOvercurrent() {
-        return getSensorBoolean(SENSOR_IDX_wheelOvercurrentRight);
+        return wheelOvercurrentRight;
     }
 
     public synchronized boolean isSongPlaying() {
-        return getSensorBoolean(SENSOR_IDX_songPlaying);
+        return songPlaying;
     }
 
     public synchronized boolean isSpotButtonDown() {
-        return (getSensorInteger(SENSOR_IDX_buttons) & LEDS_SPOT) != 0;
+        return (buttons & SPOT_BUTTON_LED_ID) != 0;
     }
 
     public synchronized boolean isVirtualWall() {
-        return getSensorBoolean(SENSOR_IDX_virtualWall);
+        return virtualWall;
     }
 
     public synchronized boolean isWall() {
-        return getSensorBoolean(SENSOR_IDX_wall);
+        return wall;
     }
 
     public synchronized boolean isWheelDropLeft() {
-        return getSensorBoolean(SENSOR_IDX_wheelDropLeft);
+        return wheelDropLeft;
     }
 
     public synchronized boolean isWheelDropRight() {
-        return getSensorBoolean(SENSOR_IDX_wheelDropRight);
+        return wheelDropRight;
     }
 
     public synchronized void leds(int powerColor, int powerIntensity, boolean spotLedOn) throws ConnectionLostException {
         serialConnection.writeByte(COMMAND_LEDS);
-        serialConnection.writeByte(spotLedOn ? LEDS_SPOT : 0);
+        serialConnection.writeByte(spotLedOn ? SPOT_BUTTON_LED_ID : 0);
         serialConnection.writeByte(powerColor);
         serialConnection.writeByte(powerIntensity);
         SystemClock.sleep(AFTER_COMMAND_PAUSE_TIME);
@@ -545,14 +531,12 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
         isSpotLedOn = spotLedOn;
     }
 
-    public synchronized void ledsToggle(boolean togglePower, boolean togglePlay)
+    public synchronized void ledsToggle(boolean togglePower)
             throws ConnectionLostException {
         if (togglePower) {
             powerLedIntensity = powerLedIntensity ^ 0xFF;
         }
-        if (togglePlay) {
-            isSpotLedOn = !isSpotLedOn;
-        }
+        isSpotLedOn = !isSpotLedOn;
         leds(powerLedColor, powerLedIntensity, isSpotLedOn);
     }
 
@@ -587,41 +571,41 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
         switch (sensorId) {
             case SENSORS_BUMPS_AND_WHEEL_DROPS:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_bumpRight, (dataByte & 0x01) != 0);
-                setSensorBoolean(SENSOR_IDX_bumpLeft, (dataByte & 0x02) != 0);
-                setSensorBoolean(SENSOR_IDX_wheelDropRight, (dataByte & 0x04) != 0);
-                setSensorBoolean(SENSOR_IDX_wheelDropLeft, (dataByte & 0x08) != 0);
+                bumpRight = (dataByte & 0x01) != 0;
+                bumpLeft = (dataByte & 0x02) != 0;
+                wheelDropRight = (dataByte & 0x04) != 0;
+                wheelDropLeft = (dataByte & 0x08) != 0;
                 break;
             case SENSORS_WALL:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_wall, (dataByte & 0x01) != 0);
+                wall = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_CLIFF_LEFT:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_cliffLeft, (dataByte & 0x01) != 0);
+                cliffLeft = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_CLIFF_FRONT_LEFT:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_cliffFrontLeft, (dataByte & 0x01) != 0);
+                cliffFrontLeft = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_CLIFF_FRONT_RIGHT:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_cliffFrontRight, (dataByte & 0x01) != 0);
+                cliffFrontRight = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_CLIFF_RIGHT:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_cliffRight, (dataByte & 0x01) != 0);
+                cliffRight = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_VIRTUAL_WALL:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_virtualWall, (dataByte & 0x01) != 0);
+                virtualWall = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_WHEEL_OVERCURRENTS:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_wheelOvercurrentSideBrush, (dataByte & 0x01) != 0);
-                setSensorBoolean(SENSOR_IDX_wheelOvercurrentMainBrush, (dataByte & 0x04) != 0);
-                setSensorBoolean(SENSOR_IDX_wheelOvercurrentRight, (dataByte & 0x08) != 0);
-                setSensorBoolean(SENSOR_IDX_wheelOvercurrentLeft, (dataByte & 0x10) != 0);
+                wheelOvercurrentSideBrush = (dataByte & 0x01) != 0;
+                wheelOvercurrentMainBrush = (dataByte & 0x04) != 0;
+                wheelOvercurrentRight = (dataByte & 0x08) != 0;
+                wheelOvercurrentLeft = (dataByte & 0x10) != 0;
                 break;
             case SENSORS_DIRT_DETECT:
                 serialConnection.readUnsignedByte();
@@ -630,58 +614,58 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
                 serialConnection.readUnsignedByte();
                 break;
             case SENSORS_INFRARED_BYTE:
-                setSensorInteger(SENSOR_IDX_infraredByte, serialConnection.readUnsignedByte());
+                infraredByte = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_INFRARED_BYTE_LEFT:
-                setSensorInteger(SENSOR_IDX_infraredByteLeft, serialConnection.readUnsignedByte());
+                infraredByteLeft = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_INFRARED_BYTE_RIGHT:
-                setSensorInteger(SENSOR_IDX_infraredByteRight, serialConnection.readUnsignedByte());
+                infraredByteRight = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_BUTTONS:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorInteger(SENSOR_IDX_buttons, dataByte);
+                buttons = dataByte;
                 break;
             case SENSORS_DISTANCE:
                 dataWord = serialConnection.readSignedWord();
-                setSensorInteger(SENSOR_IDX_distance, dataWord);
+                distance = dataWord;
                 break;
             case SENSORS_ANGLE:
                 dataWord = serialConnection.readSignedWord();
-                setSensorInteger(SENSOR_IDX_angle, dataWord);
+                angle = dataWord;
                 break;
             case SENSORS_CHARGING_STATE:
-                setSensorInteger(SENSOR_IDX_chargingState, serialConnection.readUnsignedByte());
+                chargingState = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_VOLTAGE:
-                setSensorInteger(SENSOR_IDX_voltage, serialConnection.readUnsignedWord());
+                voltage = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CURRENT:
-                setSensorInteger(SENSOR_IDX_current, serialConnection.readSignedWord());
+                current = serialConnection.readSignedWord();
                 break;
             case SENSORS_BATTERY_TEMPERATURE:
-                setSensorInteger(SENSOR_IDX_batteryTemperature, serialConnection.readSignedByte());
+                batteryTemperature = serialConnection.readSignedByte();
                 break;
             case SENSORS_BATTERY_CHARGE:
-                setSensorInteger(SENSOR_IDX_batteryCharge, serialConnection.readUnsignedWord());
+                batteryCharge = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_BATTERY_CAPACITY:
-                setSensorInteger(SENSOR_IDX_batteryCapacity, serialConnection.readUnsignedWord());
+                batteryCapacity = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_WALL_SIGNAL:
-                setSensorInteger(SENSOR_IDX_wallSignal, serialConnection.readUnsignedWord());
+                wallSignal = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CLIFF_SIGNAL_LEFT:
-                setSensorInteger(SENSOR_IDX_cliffLeftSignal, serialConnection.readUnsignedWord());
+                cliffSignalLeft = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CLIFF_SIGNAL_LEFT_FRONT:
-                setSensorInteger(SENSOR_IDX_cliffFrontLeftSignal, serialConnection.readUnsignedWord());
+                cliffSignalLeftFront = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CLIFF_SIGNAL_RIGHT_FRONT:
-                setSensorInteger(SENSOR_IDX_cliffFrontRightSignal, serialConnection.readUnsignedWord());
+                cliffSignalRightFront = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CLIFF_SIGNAL_RIGHT:
-                setSensorInteger(SENSOR_IDX_cliffRightSignal, serialConnection.readUnsignedWord());
+                cliffSignalRight = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_CARGO_BAY_DIGITAL_INPUTS:
                 serialConnection.readUnsignedByte();
@@ -691,69 +675,66 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
                 break;
             case SENSORS_CHARGING_SOURCES_AVAILABLE:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_internalChargerAvailable, (dataByte & 0x01) != 0);
-                setSensorBoolean(SENSOR_IDX_homeBaseChargerAvailable, (dataByte & 0x02) != 0);
+                internalChargerAvailable = (dataByte & 0x01) != 0;
+                homeBaseChargerAvailable = (dataByte & 0x02) != 0;
                 break;
             case SENSORS_OI_MODE:
-                setSensorInteger(SENSOR_IDX_oiMode, serialConnection.readUnsignedByte());
+                oiMode = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_SONG_NUMBER:
-                setSensorInteger(SENSOR_IDX_songNumber, serialConnection.readUnsignedByte());
+                songNumber = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_SONG_PLAYING:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_songPlaying, (dataByte & 0x01) != 0);
+                songPlaying = (dataByte & 0x01) != 0;
                 break;
             case SENSORS_NUMBER_OF_STREAM_PACKETS:
-                setSensorInteger(SENSOR_IDX_numberOfStreamPackets, serialConnection.readUnsignedByte());
+                serialConnection.readUnsignedByte();
                 break;
             case SENSORS_REQUESTED_VELOCITY:
-                setSensorInteger(SENSOR_IDX_requestedVelocity, serialConnection.readSignedWord());
+                requestedVelocity = serialConnection.readSignedWord();
                 break;
             case SENSORS_REQUESTED_RADIUS:
-                setSensorInteger(SENSOR_IDX_requestedRadius, serialConnection.readSignedWord());
+                requestedRadius = serialConnection.readSignedWord();
                 break;
             case SENSORS_REQUESTED_VELOCITY_RIGHT:
-                setSensorInteger(SENSOR_IDX_requestedRightVelocity, serialConnection.readSignedWord());
+                requestedVelocityRight = serialConnection.readSignedWord();
                 break;
             case SENSORS_REQUESTED_VELOCITY_LEFT:
-                setSensorInteger(SENSOR_IDX_requestedLeftVelocity, serialConnection.readSignedWord());
+                requestedVelocityLeft = serialConnection.readSignedWord();
                 break;
             case SENSORS_ENCODER_COUNT_LEFT:
-                setSensorInteger(SENSOR_IDX_encoderCountLeft, serialConnection.readSignedWord());
+                encoderCountLeft = serialConnection.readSignedWord();
                 break;
             case SENSORS_ENCODER_COUNT_RIGHT:
-                setSensorInteger(SENSOR_IDX_encoderCountRight, serialConnection.readUnsignedWord());
+                encoderCountRight = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMPER:
-                setSensorInteger(SENSOR_IDX_lightBumper, serialConnection.readUnsignedByte());
+                lightBump = serialConnection.readUnsignedByte();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_LEFT:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalLeft, serialConnection.readUnsignedWord());
+                lightBumpSignalLeft = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_LEFT_FRONT:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalLeftFront, serialConnection.readUnsignedWord());
+                lightBumpSignalLeftFront = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_LEFT_CENTER:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalLeftCenter,
-                        serialConnection.readUnsignedWord());
+                lightBumpSignalLeftCenter = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_RIGHT:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalRight, serialConnection.readUnsignedWord());
+                lightBumpSignalRight = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_RIGHT_FRONT:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalRightFront,
-                        serialConnection.readUnsignedWord());
+                lightBumpSignalRightFront = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_LIGHT_BUMP_SIGNAL_RIGHT_CENTER:
-                setSensorInteger(SENSOR_IDX_lightBumpSignalRightCenter,
-                        serialConnection.readUnsignedWord());
+                lightBumpSignalRightCenter = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_MOTOR_CURRENT_LEFT:
-                setSensorInteger(SENSOR_IDX_motorCurrentLeft, serialConnection.readUnsignedWord());
+                motorCurrentLeft = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_MOTOR_CURRENT_RIGHT:
-                setSensorInteger(SENSOR_IDX_motorCurrentRight, serialConnection.readUnsignedWord());
+                motorCurrentRight = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_MAIN_BRUSH_MOTOR_CURRENT:
                 serialConnection.readSignedWord();
@@ -763,7 +744,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
                 break;
             case SENSORS_STASIS:
                 dataByte = serialConnection.readUnsignedByte();
-                setSensorBoolean(SENSOR_IDX_stasis, (dataByte & 0x1) != 0);
+                stasis = (dataByte & 0x1) != 0;
                 break;
             default:
                 throw new IllegalArgumentException(String.valueOf(sensorId));
@@ -778,14 +759,6 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
     public synchronized void safe() throws ConnectionLostException {
         serialConnection.writeByte(COMMAND_MODE_SAFE);
         SystemClock.sleep(AFTER_COMMAND_PAUSE_TIME);
-    }
-
-    private void setSensorBoolean(int sensorId, boolean value) {
-        sensorValues[sensorId] = value ? 1 : 0;
-    }
-
-    private void setSensorInteger(int sensorId, int value) {
-        sensorValues[sensorId] = value;
     }
 
     public synchronized void song(int songNumber, int[] notesAndDurations)
@@ -816,7 +789,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
         SystemClock.sleep(AFTER_COMMAND_PAUSE_TIME);
     }
 
-    public synchronized void waitButtonPressed(boolean spotButton, boolean beep)
+    public synchronized void waitButtonPressed(boolean beep)
             throws ConnectionLostException {
         int startingPowerLedIntensity = powerLedIntensity;
         int startingPowerLedColor = powerLedColor;
@@ -829,16 +802,10 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
         }
         while (true) {
             readSensors(SENSORS_BUTTONS);
-            if (gotButtonDown && spotButton && !isSpotButtonDown()) {
+            if (gotButtonDown && !isSpotButtonDown()) {
                 break;
             }
-            if (gotButtonDown && !spotButton && !isAdvanceButtonDown()) {
-                break;
-            }
-            if (spotButton && isSpotButtonDown()) {
-                gotButtonDown = true;
-            }
-            if (!spotButton && isAdvanceButtonDown()) {
+            if (isSpotButtonDown()) {
                 gotButtonDown = true;
             }
             SystemClock.sleep(noteDuration);
@@ -847,7 +814,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
                 if (beep) {
                     playSong(0);
                 }
-                ledsToggle(false, spotButton);
+                ledsToggle(true);
                 totalTimeWaiting = 0;
             }
         }

@@ -21,7 +21,7 @@ public interface IOIOLooper {
 	 * Subclasses should override this method for performing operations to be
 	 * done once as soon as IOIO communication is established.
 	 */
-	public abstract void setup(IOIO ioio) throws ConnectionLostException,
+	void setup(IOIO ioio) throws ConnectionLostException,
 			InterruptedException;
 
 	/**
@@ -30,7 +30,7 @@ public interface IOIOLooper {
 	 * will be the main logic of the application, processing inputs and
 	 * producing outputs.
 	 */
-	public abstract void loop() throws ConnectionLostException,
+	void loop() throws ConnectionLostException,
 			InterruptedException;
 
 	/**
@@ -42,7 +42,7 @@ public interface IOIOLooper {
 	 * invalid. This method should not block for long, since it may cause an
 	 * ANR.
 	 */
-	public abstract void disconnected();
+	void disconnected();
 
 	/**
 	 * Subclasses should override this method for performing operations to be
@@ -51,6 +51,6 @@ public interface IOIOLooper {
 	 * it is invalid. This method will only be called once, until a compatible
 	 * IOIO is connected (i.e. {@link #setup(IOIO)} gets called).
 	 */
-	public abstract void incompatible();
+	void incompatible();
 
 }

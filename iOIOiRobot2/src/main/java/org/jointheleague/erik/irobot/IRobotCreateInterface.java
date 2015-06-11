@@ -246,9 +246,7 @@ public interface IRobotCreateInterface {
     /**
      * Identifies the low side driver and wheel overcurrent sensors.
      *
-     * @see #isLowSideDriver0Overcurrent()
-     * @see #isLowSideDriver1Overcurrent()
-     * @see #isLowSideDriver2Overcurrent()
+     * @see #isWheelOvercurrentMainBrush()
      * @see #isLeftWheelOvercurrent()
      * @see #isRightWheelOvercurrent()
      */
@@ -270,7 +268,6 @@ public interface IRobotCreateInterface {
     /**
      * Identifies the button sensors.
      *
-     * @see #isAdvanceButtonDown()
      * @see #isSpotButtonDown()
      */
     int SENSORS_BUTTONS = 18;
@@ -1060,7 +1057,7 @@ public interface IRobotCreateInterface {
      *
      * @return the stasis value
      */
-    boolean getStasis();
+    boolean isStasis();
 
     /**
      * Gets the strength of the wall sensor's signal as a number between 0 and
@@ -1075,19 +1072,6 @@ public interface IRobotCreateInterface {
      * @see #readSensors(int sensorId)
      */
     int getWallSignal();
-
-    /**
-     * Gets the state of the Advance button.
-     * <p/>
-     * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
-     * fresh values.
-     *
-     * @return true if the Advance button is pressed.
-     * @see #readSensors(int sensorId)
-     */
-    boolean isAdvanceButtonDown();
 
     /**
      * Gets the state of the left bumper.
@@ -1210,32 +1194,6 @@ public interface IRobotCreateInterface {
     boolean isLightBump();
 
     /**
-     * Gets the state of the Low Side Driver 0 overcurrent sensor.
-     * <p/>
-     * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
-     * fresh values.
-     *
-     * @return true if too much current (> 0.5A) is requested.
-     * @see #readSensors(int sensorId)
-     */
-    boolean isLowSideDriver0Overcurrent();
-
-    /**
-     * Gets the state of the Low Side Driver 1 overcurrent sensor.
-     * <p/>
-     * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
-     * fresh values.
-     *
-     * @return true if too much current (> 0.5A) is requested.
-     * @see #readSensors(int sensorId)
-     */
-    boolean isLowSideDriver1Overcurrent();
-
-    /**
      * Gets the state of the Low Side Driver 2 overcurrent sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
@@ -1246,7 +1204,7 @@ public interface IRobotCreateInterface {
      * @return true if too much current (> 1.6A) is requested.
      * @see #readSensors(int sensorId)
      */
-    boolean isLowSideDriver2Overcurrent();
+    boolean isWheelOvercurrentMainBrush();
 
     /**
      * Gets the state of the Spot button
@@ -1479,12 +1437,10 @@ public interface IRobotCreateInterface {
      * Pause Java execution until Spot button is pressed. While waiting, blink the LED
      * next to the desired button.
      *
-     * @param spotButton If true wait for the play button, otherwise wait for the
-     *                   advance button
      * @param beep       If true, plays a tune.
      * @throws ConnectionLostException
      */
-    void waitButtonPressed(boolean spotButton, boolean beep)
+    void waitButtonPressed(boolean beep)
             throws ConnectionLostException;
 
     /**
