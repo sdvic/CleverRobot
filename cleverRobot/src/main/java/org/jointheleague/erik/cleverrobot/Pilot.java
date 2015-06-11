@@ -47,10 +47,6 @@ public class Pilot extends IRobotCreateAdapter {
         if (checkDone()) {
             nextCommand();
         }
-        readSensors(SENSORS_GROUP_ID2);
-        if (isSpotButtonDown()) {
-            shutDown();
-        }
     }
 
     /**
@@ -72,13 +68,6 @@ public class Pilot extends IRobotCreateAdapter {
             shutDown();
             currentCommand++;
         }
-    }
-
-    private void shutDown() throws ConnectionLostException {
-        dashboard.log("Shutting down... Bye!");
-        driveDirect(0, 0);
-        stop();
-        closeConnection();
     }
 
 
