@@ -237,8 +237,14 @@ public class Dashboard extends IOIOActivity implements
             }
 
             public void loop() throws ConnectionLostException, InterruptedException {
-                if (!kalina.shutDown()) {
-                        kalina.loop();
+                kalina.readSensors(SENSORS_GROUP_ID2);
+                if (kalina.isSpotButtonDown()) {
+                        dashboard.log("Shutting down... Bye!");
+                        kalina.driveDirect(0, 0);
+                        kalina.stop();
+                        kalina.closeConnection();
+                } else {
+                	kalina.loop();
                 }
             }
 
