@@ -65,11 +65,11 @@ public class Pilot extends IRobotCreateAdapter {
             }
             currentCommand++;
         } else if (currentCommand == 8) {
-            shutDown();
-            currentCommand++;
+            dashboard.log("Shutting down... Bye!");
+            stop();
+            closeConnection();
         }
     }
-
 
     /**
      * Moves the robot in a straight line
@@ -80,13 +80,11 @@ public class Pilot extends IRobotCreateAdapter {
         dashboard.log("Going straight");
         countsToGoWheelLeft = (int) (distance * ENCODER_COUNTS_PER_REVOLUTION
                 / (Math.PI * WHEEL_DIAMETER));
-        dashboard.log("countsToGo = " + countsToGoWheelLeft);
         countsToGoWheelRight = countsToGoWheelLeft;
         directionLeft = 1;
         directionRight = 1;
         readSensors(SENSORS_GROUP_ID101);
         startLeft = directionLeft * getEncoderCountLeft();
-        dashboard.log("startLeft = " + startLeft);
         startRight = directionRight * getEncoderCountRight();
         driveDirect(directionLeft * STRAIGHT_SPEED, directionRight * STRAIGHT_SPEED);
     }
@@ -98,7 +96,7 @@ public class Pilot extends IRobotCreateAdapter {
      * @param degrees the number of degrees to turn.
      */
     private void turnRight(int degrees) throws ConnectionLostException {
-        dashboard.log("Turning 90 deg  right");
+        dashboard.log("Turning right");
         countsToGoWheelRight = (int) (degrees * WHEEL_DISTANCE * ENCODER_COUNTS_PER_REVOLUTION
                 / (360.0 * WHEEL_DIAMETER));
         countsToGoWheelLeft = countsToGoWheelRight;
@@ -116,6 +114,7 @@ public class Pilot extends IRobotCreateAdapter {
      * @param degrees the number of degrees to turn.
      */
     private void turnLeft(int degrees) throws ConnectionLostException {
+        dashboard.log("Turning left");
         countsToGoWheelRight = (int) (degrees * WHEEL_DISTANCE * ENCODER_COUNTS_PER_REVOLUTION
                 / (360.0 * WHEEL_DIAMETER));
         countsToGoWheelLeft = countsToGoWheelRight;
