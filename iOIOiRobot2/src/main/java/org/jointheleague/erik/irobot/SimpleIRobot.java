@@ -1,6 +1,7 @@
 package org.jointheleague.erik.irobot;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import ioio.lib.api.IOIO;
@@ -16,18 +17,18 @@ import ioio.lib.api.exception.ConnectionLostException;
  * better understanding of how to work with the robot.
  * <p/>
  * Note: The default constructor will not return until it has managed to connect
- * with the Create via the default serial interface from the IOIO to the create.
+ * with the iRobot via the default serial interface from the IOIO to the iRobot.
  * This means that once you have received the instance, you are ok to control
  * the robot.
  * <p/>
  * <b>NOTE:</b> This class is final; it cannot be extended. Extend
- * {@link IRobotCreateAdapter IRobotCreateAdapter} instead.
+ * {@link IRobotAdapter IRobotAdapter} instead.
  */
-public final class SimpleIRobotCreate implements IRobotCreateInterface {
+public final class SimpleIRobot implements IRobotInterface {
 
-    private static final String TAG = "SimpleIRobotCreate";
+    private static final String TAG = "SimpleIRobot";
     /**
-     * This command puts the OI into Safe mode, enabling user control of Create.
+     * This command puts the OI into Safe mode, enabling user control of iRobot.
      * It turns off all LEDs. The OI can be in Passive, Safe, or Full mode to
      * accept this command.
      *
@@ -35,9 +36,9 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      */
     private static final int COMMAND_MODE_SAFE = 131;
     /**
-     * This command gives you complete control over Create by putting the OI
+     * This command gives you complete control over iRobot by putting the OI
      * into Full mode, and turning off the cliff, wheel-drop and internal
-     * charger safety features. That is, in Full mode, Create executes any
+     * charger safety features. That is, in Full mode, iRobot executes any
      * command that you send it, even if the internal charger is plugged in, or
      * the robot senses a cliff or wheel drop.
      *
@@ -49,21 +50,21 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
 
     private static final int COMMAND_STOP = 173;
     /**
-     * This command controls Create's drive wheels. It takes four data bytes,
+     * This command controls iRobot's drive wheels. It takes four data bytes,
      * interpreted as two 16-bit signed values using two's complement. The first
      * two bytes specify the average velocity of the drive wheels in millimeters
      * per second (mm/s), with the high byte being sent first. The next two
-     * bytes specify the radius in millimeters at which Create will turn. The
-     * longer radii make Create drive straighter, while the shorter radii make
-     * Create turn more. The radius is measured from the center of the turning
-     * circle to the center of Create. A Drive command with a positive velocity
-     * and a positive radius makes Create drive forward while turning toward the
-     * left. A negative radius makes Create turn toward the right. Special cases
-     * for the radius make Create turn in place or drive straight, as specified
-     * below. A negative velocity makes Create drive backward. <br>
-     * NOTE: Internal and environmental restrictions may prevent Create from
+     * bytes specify the radius in millimeters at which iRobot will turn. The
+     * longer radii make iRobot drive straighter, while the shorter radii make
+     * iRobot turn more. The radius is measured from the center of the turning
+     * circle to the center of iRobot. A Drive command with a positive velocity
+     * and a positive radius makes iRobot drive forward while turning toward the
+     * left. A negative radius makes iRobot turn toward the right. Special cases
+     * for the radius make iRobot turn in place or drive straight, as specified
+     * below. A negative velocity makes iRobot drive backward. <br>
+     * NOTE: Internal and environmental restrictions may prevent iRobot from
      * accurately carrying out some drive commands. For example, it may not be
-     * possible for Create to drive at full speed in an arc with a large radius
+     * possible for iRobot to drive at full speed in an arc with a large radius
      * of curvature. <br>
      * + Available in modes: Safe or Full <br>
      * + Changes mode to: No Change <br>
@@ -78,7 +79,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      */
     private static final int COMMAND_DRIVE = 137;
     /**
-     * This command controls the LEDs on Create. The state of LEDs is specified by
+     * This command controls the LEDs on iRobot. The state of LEDs is specified by
      * two bits in the first data byte. The power LED is specified by two data bytes:
      * one for the color and the other for the intensity.
      * <p/>
@@ -93,7 +94,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      * values are intermediate intensities.</li>
      * </ul>
      *
-     * @see IRobotCreateInterface#leds(int, int, boolean)
+     * @see IRobotInterface#leds(int, int, boolean)
      */
     private static final int COMMAND_LEDS = 139;
     /**
@@ -116,12 +117,12 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
     private static final int COMMAND_SONG = 140;
     /**
      * This command lets you select a song to play from the songs added to
-     * iRobot Create using the Song command. You must add one or more songs to
-     * Create using the Song command in order for the Play command to work.
+     * iRobot using the Song command. You must add one or more songs to
+     * iRobot using the Song command in order for the Play command to work.
      * Also, this command does not work if a song is already playing. Wait until
      * a currently playing song is done before sending this command. Note that
-     * {@link IRobotCreateInterface#SENSORS_SONG_PLAYING} can be used to check
-     * whether the Create is ready to accept this command.
+     * {@link IRobotInterface#SENSORS_SONG_PLAYING} can be used to check
+     * whether the iRobot is ready to accept this command.
      *
      * @see #playSong(int)
      */
@@ -135,7 +136,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      */
     private static final int COMMAND_SENSORS = 142;
     /**
-     * This command lets you control the forward and backward motion of Create's
+     * This command lets you control the forward and backward motion of iRobot's
      * drive wheels independently. It takes four data bytes, which are
      * interpreted as two 16-bit signed values using two's complement. The first
      * two bytes specify the velocity of the right wheel in millimeters per
@@ -152,7 +153,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
      */
     private static final int COMMAND_DRIVE_DIRECT = 145;
     /**
-     * Time in ms to pause after sending a command to the Create.
+     * Time in ms to pause after sending a command to the iRobot.
      */
     private static final int AFTER_COMMAND_PAUSE_TIME = 20;
     // Sensor values previously read:
@@ -216,44 +217,42 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
     private SparseIntArray sensorGroupHigh;
 
     /**
-     * Constructor that uses the IOIO instance to communicate with the iRobot
-     * Create. Equivalent to using
-     * <code>SimpleIRobotCreate(ioio, false, true, true)</code>
+     * Constructor that uses the IOIO instance to communicate with the iRobot.
+     * Equivalent to using <code>SimpleIRobot(ioio, false, true, true)</code>
      *
-     * @param ioio The IOIO instance used to communicate with the Create
+     * @param ioio The IOIO instance used to communicate with the iRobot
      * @throws ConnectionLostException
-     * @see #SimpleIRobotCreate(IOIO, boolean, boolean, boolean)
+     * @see #SimpleIRobot(IOIO, boolean, boolean, boolean)
      */
-    public SimpleIRobotCreate(IOIO ioio) throws ConnectionLostException {
+    public SimpleIRobot(IOIO ioio) throws ConnectionLostException {
         this(ioio, false, true, true);
     }
 
     /**
-     * Constructor that uses the IOIO instance to communicate with the iRobot
-     * Create.
+     * Constructor that uses the IOIO instance to communicate with the iRobot.
      *
-     * @param ioio        The IOIO instance used to communicate with the Create
+     * @param ioio        The IOIO instance used to communicate with the iRobot
      * @param debugSerial if true will create a default serial connection with debug
      *                    true
      * @param fullMode    if true enter full mode, otherwise enter safe mode
      * @param waitButton  if true wait until play button is pressed
      * @throws ConnectionLostException
      */
-    public SimpleIRobotCreate(IOIO ioio, boolean debugSerial, boolean fullMode, boolean waitButton)
+    public SimpleIRobot(IOIO ioio, boolean debugSerial, boolean fullMode, boolean waitButton)
             throws ConnectionLostException {
         this(SerialConnection.getInstance(ioio, debugSerial), fullMode, waitButton);
     }
 
     /**
      * Constructor that uses a given serial connection as its means of sending
-     * and reading data to and from the Create.
+     * and reading data to and from the iRobot.
      *
      * @param sc         user-specified serial connection.
      * @param fullMode   if true enter full mode, otherwise enter safe mode
      * @param waitButton if true wait until play button is pressed
      * @throws ConnectionLostException
      */
-    SimpleIRobotCreate(SerialConnection sc, boolean fullMode, boolean waitButton)
+    SimpleIRobot(SerialConnection sc, boolean fullMode, boolean waitButton)
             throws ConnectionLostException {
         this.serialConnection = sc;
         buildSensorGroups();
@@ -265,6 +264,33 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
         if (waitButton) {
             waitButtonPressed(true);
         }
+        startSpotListener();
+    }
+
+    private void startSpotListener() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                boolean running = true;
+                try {
+                    while (running) {
+                        SystemClock.sleep(1000L);
+                        readSensors(SENSORS_GROUP_ID2);
+                        Log.d(TAG, "Spot button sensor read.");
+                        if (isSpotButtonDown()) {
+                            Log.d(TAG, "Spot button down.");
+                            stop();
+                            closeConnection();
+                            running = false;
+                        }
+                    }
+                } catch (ConnectionLostException e) {
+                    Log.w(TAG, "ConnectionLostException occurred. " + e.getMessage());
+                }
+            }
+        }).start();
+        Log.d(TAG, "Spot listener started.");
     }
 
     private void buildSensorGroups() {
@@ -704,7 +730,7 @@ public final class SimpleIRobotCreate implements IRobotCreateInterface {
                 requestedVelocityLeft = serialConnection.readSignedWord();
                 break;
             case SENSORS_ENCODER_COUNT_LEFT:
-                encoderCountLeft = serialConnection.readSignedWord();
+                encoderCountLeft = serialConnection.readUnsignedWord();
                 break;
             case SENSORS_ENCODER_COUNT_RIGHT:
                 encoderCountRight = serialConnection.readUnsignedWord();

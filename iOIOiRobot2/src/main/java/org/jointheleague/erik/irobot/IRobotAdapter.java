@@ -4,25 +4,25 @@ import ioio.lib.api.exception.ConnectionLostException;
 
 /**
  * A concrete class that provides a default implementation of the
- * IRobotCreateInterface. It is a convenience class intended to be extended in
- * order to define customized implementations of the IRobotCreateInterface.
+ * IRobotInterface. It is a convenience class intended to be extended in
+ * order to define customized implementations of the IRobotInterface.
  */
-public class IRobotCreateAdapter implements IRobotCreateInterface {
+public class IRobotAdapter implements IRobotInterface {
 
     /**
      * The decorated instance. All calls on the methods of the
-     * IRobotCreateInterface are forwarded to this instance.
+     * IRobotInterface are forwarded to this instance.
      */
-    protected final IRobotCreateInterface delegate;
+    protected final IRobotInterface delegate;
 
     /**
-     * Makes a new instance from an IRobotCreateInterface implementation
+     * Makes a new instance from an IRobotInterface implementation
      * instance.
      *
-     * @param delegate a non-null instance of IRobotCreateInterface to which
+     * @param delegate a non-null instance of IRobotInterface to which
      *                 method calls are forwarded.
      */
-    public IRobotCreateAdapter(IRobotCreateInterface delegate) {
+    public IRobotAdapter(IRobotInterface delegate) {
         if (delegate == null) {
             throw new IllegalArgumentException("Argument must be non-null");
         }

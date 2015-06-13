@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 /**
  * This class represents the communication channel between the IOIO board and
- * the iRobot Create. At most one instance of this class may be instantiated.
+ * the iRobot. At most one instance of this class may be instantiated.
  * Use the
  * {@link #getInstance(IOIO, boolean) getInsatnce(IOIO ioio, boolean debug)}
  * method to get that instance.
@@ -27,8 +27,8 @@ public final class SerialConnection {
     private IOIO ioio;
     private InputStream input;
     private OutputStream output;
-    private static final int CREATE_RX_PIN = 13;
-    private static final int CREATE_TX_PIN = 14;
+    private static final int IROBOT_RX_PIN = 13;
+    private static final int IROBOT_TX_PIN = 14;
     private Uart uart;
     private boolean debug = false;
     private byte[] uartBuffer = new byte[1000]; //buffer used in read and write operations
@@ -36,18 +36,18 @@ public final class SerialConnection {
     private static final int COMMAND_START = 128; //Starts the OI. Must be the first command sent.
     private static final SerialConnection theConnection = new SerialConnection();
 
-//  Constructor of a serial connection between the Create and the IOIO board
+//  Constructor of a serial connection between the iRobot and the IOIO board
     private SerialConnection() {
     }
 
     /**
-     * Gets a default serial connection to the Create. This method returns after
-     * a connection between the IOIO and the Create has been established.
+     * Gets a default serial connection to the iRobot. This method returns after
+     * a connection between the IOIO and the iRobot has been established.
      *
-     * @param ioio the ioio instance used to connect to the Create
+     * @param ioio the ioio instance used to connect to the iRobot
      * @param debug if true establishes a connection that prints out debugging
      * information.
-     * @return a serial connection to the Create
+     * @return a serial connection to the iRobot
      */
     public static SerialConnection getInstance(IOIO ioio, boolean debug)
             throws ConnectionLostException {
@@ -57,21 +57,21 @@ public final class SerialConnection {
         theConnection.ioio = ioio;
         theConnection.debug = debug;
         try {
-            theConnection.connectToCreate();
+            theConnection.connectToIRobot();
         } catch (Exception e) {
             if (debug) {
-                Log.d(TAG, "Try connecting one more time in case user forgot to turn on the Create");
+                Log.d(TAG, "Try connecting one more time in case user forgot to turn on the iRobot");
             }
             SystemClock.sleep(2500);
-            theConnection.connectToCreate();
+            theConnection.connectToIRobot();
         }
 
         return theConnection;
     }
 
-//     Sends the start command to the Create
-    private void connectToCreate() throws ConnectionLostException {
-        uart = theConnection.ioio.openUart(CREATE_RX_PIN, CREATE_TX_PIN, BAUD_RATE, Uart.Parity.NONE, Uart.StopBits.ONE);
+//     Sends the start command to the iRobot
+    private void connectToIRobot() throws ConnectionLostException {
+        uart = theConnection.ioio.openUart(IROBOT_RX_PIN, IROBOT_TX_PIN, BAUD_RATE, Uart.Parity.NONE, Uart.StopBits.ONE);
         input = uart.getInputStream();
         output = uart.getOutputStream();
         final int numberOfStartsToSend = MAX_COMMAND_SIZE;
@@ -81,7 +81,7 @@ public final class SerialConnection {
         }
         writeBytes(uartBuffer, 0, numberOfStartsToSend);
         if (debug) {
-            Log.d(TAG, "Waiting for the Create to get into passive mode");
+            Log.d(TAG, "Waiting for the iRobot to get into passive mode");
         }
         while (true) {
             uartBuffer[0] = (byte) SENSOR_COMMAND;
@@ -97,7 +97,7 @@ public final class SerialConnection {
 
     /**
      * The maximum number of bytes that can be transmitted in a command to the
-     * Create
+     * iRobot
      *
      * @return the max size in bytes
      */
@@ -115,7 +115,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Reads a byte received from the Create over the serial connection and
+     * Reads a byte received from the iRobot over the serial connection and
      * interprets it as a signed byte, i.e., value is in the range -128 - 127.
      *
      * @return the value as an int
@@ -138,7 +138,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Reads a byte received from the Create over the serial connection and
+     * Reads a byte received from the iRobot over the serial connection and
      * interprets it as an unsigned byte, i.e., value is in range 0 - 255.
      *
      * @return the value as an int
@@ -157,7 +157,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Reads 2 bytes received from the Create over the serial connection and
+     * Reads 2 bytes received from the iRobot over the serial connection and
      * interprets them as a signed word, i.e., value is in range -32768 - 32767.
      *
      * @return the value as an int
@@ -182,7 +182,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Reads several bytes received from the Create over the serial connection
+     * Reads several bytes received from the iRobot over the serial connection
      * and interprets each as an unsigned byte, i.e., each value is in the range
      * 0 - 255.
      *
@@ -216,7 +216,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Reads 2 bytes received from the Create over the serial connection and
+     * Reads 2 bytes received from the iRobot over the serial connection and
      * interprets them as an unsigned word, i.e., value is in range 0 - 65535.
      *
      * @return the value as an int
@@ -237,7 +237,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Sends a byte over the serial connection to the Create.
+     * Sends a byte over the serial connection to the iRobot.
      *
      * @param b the byte sent
      * @throws ConnectionLostException
@@ -254,7 +254,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Sends several bytes over the serial connection to the Create
+     * Sends several bytes over the serial connection to the iRobot
      *
      * @param bytes an array of bytes
      * @param start the position of first byte to be sent in the array
@@ -276,7 +276,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Sends several bytes over the serial connection to the Create
+     * Sends several bytes over the serial connection to the iRobot
      *
      * @param ints an array of ints that are cast to byte before sending
      * @param start the position of first byte to be sent in the array
@@ -304,7 +304,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Sends a signed word to the Create over the serial connection as two
+     * Sends a signed word to the iRobot over the serial connection as two
      * bytes, high byte first.
      *
      * @param value an int in the range -32768 - 32767.
@@ -317,7 +317,7 @@ public final class SerialConnection {
             uartBuffer[1] = (byte) (value & 0xFF);
             output.write(uartBuffer, 0, 2);
             if (debug) {
-                Log.d(TAG, "Sending signed word" + value);
+                Log.d(TAG, "Sending signed word: " + value);
             }
         } catch (IOException ex) {
             throw new ConnectionLostException(ex);
@@ -325,7 +325,7 @@ public final class SerialConnection {
     }
 
     /**
-     * Sends an unsigned word to the Create over the serial connection as two
+     * Sends an unsigned word to the iRobot over the serial connection as two
      * bytes, high byte first.
      *
      * @param value an int in the range 0 - 65535.
@@ -337,7 +337,7 @@ public final class SerialConnection {
             uartBuffer[1] = (byte) (value & 0xFF);
             output.write(uartBuffer, 0, 2);
             if (debug) {
-                Log.d(TAG, "Sending unsigned word" + value);
+                Log.d(TAG, "Sending unsigned word: " + value);
             }
         } catch (IOException ex) {
             throw new ConnectionLostException(ex);

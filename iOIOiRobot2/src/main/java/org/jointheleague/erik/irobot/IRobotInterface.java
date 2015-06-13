@@ -8,9 +8,9 @@ import ioio.lib.api.exception.ConnectionLostException;
  * "http://www.irobot.com/~/media/MainSite/PDFs/About/STEM/Create/iRobot_Roomba_600_Open_Interface_Spec_0512.pdf"
  * > iRobot Create 2 Open Interface (OI)</a>. It is recommended reading that
  * document in order to get a better understanding of how to work with the
- * Create.
+ * iRobot.
  */
-public interface IRobotCreateInterface {
+public interface IRobotInterface {
 
 
     /**
@@ -496,18 +496,18 @@ public interface IRobotCreateInterface {
 
 
     /**
-     * Controls the Create's drive wheels. Larger values for the radius makes
-     * the Create drive straighter, while the smaller values make the Create
+     * Controls the iRobot's drive wheels. Larger values for the radius makes
+     * the iRobot drive straighter, while the smaller values make the iRobot
      * turn more. The radius is measured from the center of the turning circle
-     * to the center of Create. A positive velocity and a positive radius make
-     * the Create drive forward while turning toward the left. A negative radius
-     * makes the Create turn toward the right. Special cases for the radius make
-     * Create turn in place or drive straight, as specified below. A negative
-     * velocity makes Create drive backward. Available in modes: Safe or Full
+     * to the center of iRobot. A positive velocity and a positive radius make
+     * the iRobot drive forward while turning toward the left. A negative radius
+     * makes the iRobot turn toward the right. Special cases for the radius make
+     * iRobot turn in place or drive straight, as specified below. A negative
+     * velocity makes iRobot drive backward. Available in modes: Safe or Full
      * <p/>
-     * NOTE: Internal and environmental restrictions may prevent Create from
+     * NOTE: Internal and environmental restrictions may prevent the iRobot from
      * accurately carrying out some drive commands. For example, it may not be
-     * possible for Create to drive at full speed in an arc with a large radius
+     * possible for the iRobot to drive at full speed in an arc with a large radius
      * of curvature.
      * <p/>
      * Special cases of radius:
@@ -526,7 +526,7 @@ public interface IRobotCreateInterface {
 
     /**
      * This method lets you control the forward and backward motion of the
-     * Create by specifying the velocity of each wheel independently. A positive
+     * iRobot by specifying the velocity of each wheel independently. A positive
      * velocity makes that wheel drive forward, while a negative velocity makes
      * it drive backward. Available in modes: Safe or Full
      *
@@ -538,14 +538,14 @@ public interface IRobotCreateInterface {
             throws ConnectionLostException;
 
     /**
-     * This method gives you complete control over the Create by putting the OI
+     * This method gives you complete control over the iRobot by putting the OI
      * into Full mode, and turning off the cliff, wheel-drop and internal
-     * charger safety features. That is, in Full mode, the Create executes any
+     * charger safety features. That is, in Full mode, the iRobot executes any
      * command that you send it, even if the internal charger is plugged in, or
      * the robot senses a cliff or wheel drop. Available in modes: Passive,
      * Safe, or Full <br>
      * <p/>
-     * Note: Before invoking this method a connection to the Create must have
+     * Note: Before invoking this method a connection to the iRobot must have
      * been established.
      *
      * @throws ConnectionLostException
@@ -553,52 +553,52 @@ public interface IRobotCreateInterface {
     void full() throws ConnectionLostException;
 
     /**
-     * Gets the angle in degrees that the Create has turned from the time before
+     * Gets the angle in degrees that the iRobot has turned from the time before
      * last that the angle sensor was read to the last time the angle sensor was
      * read. Counter-clockwise angles are positive and clockwise angles are
      * negative. If the value is not polled frequently enough, it is capped at
      * its minimum or maximum, which are -32768 and 32767 respectively.
      * <p/>
-     * <b>NOTE:</b> The Create uses wheel encoders to measure distance and
+     * <b>NOTE:</b> The iRobot uses wheel encoders to measure distance and
      * angle. If the wheels slip, the actual distance or angle traveled may
-     * differ from the Create's measurements.
+     * differ from the iRobot's measurements.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
-     * @return The angle in degrees that the Create has turned.
+     * @return The angle in degrees that the iRobot has turned.
      * @see #readSensors(int sensorId)
      */
     int getAngle();
 
     /**
-     * Gets the estimated charge capacity of the Create's battery in
+     * Gets the estimated charge capacity of the iRobot's battery in
      * milliamphours (mAh). Note that this value is inaccurate if you are using
      * the alkaline battery pack.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
-     * @return The estimated charge capacity of the Create's battery in
+     * @return The estimated charge capacity of the iRobot's battery in
      * milliamphours (mAh).
      * @see #readSensors(int sensorId)
      */
     int getBatteryCapacity();
 
     /**
-     * The current charge of Create's battery in milliamp-hours (mAh). The
+     * The current charge of iRobot's battery in milliamp-hours (mAh). The
      * charge value decreases as the battery is depleted during running and
      * increases when the battery is charged. <br>
      * Note that this value will not be accurate if you are using the alkaline
      * battery pack.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The battery capacity in mAh.
@@ -607,11 +607,11 @@ public interface IRobotCreateInterface {
     int getBatteryCharge();
 
     /**
-     * The temperature of Create's battery in degrees Celsius. <br>
+     * The temperature of the iRobot's battery in degrees Celsius. <br>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The battery temperature in degrees Celsius.
@@ -621,7 +621,7 @@ public interface IRobotCreateInterface {
 
 
     /**
-     * This code indicates Create's current charging state. The state is encoded
+     * This code indicates the iRobot's current charging state. The state is encoded
      * as follows:
      * <ul>
      * <li>0 -- Not charging
@@ -635,11 +635,11 @@ public interface IRobotCreateInterface {
      * <p/>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
-     * @return The Create's charging state.
+     * @return The iRobot's charging state.
      * @see #readSensors(int sensorId)
      */
     int getChargingState();
@@ -649,8 +649,8 @@ public interface IRobotCreateInterface {
      * is returned as a value between 0 and 4095.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the strength of the front left cliff sensor signal.
@@ -663,8 +663,8 @@ public interface IRobotCreateInterface {
      * is returned as a value between 0 and 4095.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the strength of the front left cliff sensor signal.
@@ -675,8 +675,8 @@ public interface IRobotCreateInterface {
     /**
      * Gets the strength of the left cliff sensor's signal. The strength is
      * returned as a value between 0 and 4095. <b>NOTE:</b> This method returns
-     * a locally stored value previously read from the Create. It is the
-     * client's responsibility to read the sensor values from the Create prior
+     * a locally stored value previously read from the iRobot. It is the
+     * client's responsibility to read the sensor values from the iRobot prior
      * to calling this method in order to ensure fresh values.
      *
      * @return the strength of the left cliff sensor signal.
@@ -687,8 +687,8 @@ public interface IRobotCreateInterface {
     /**
      * Gets the strength of the right cliff sensor's signal. The strength is
      * returned as a value between 0 and 4095. <b>NOTE:</b> This method returns
-     * a locally stored value previously read from the Create. It is the
-     * client's responsibility to read the sensor values from the Create prior
+     * a locally stored value previously read from the iRobot. It is the
+     * client's responsibility to read the sensor values from the iRobot prior
      * to calling this method in order to ensure fresh values.
      *
      * @return the strength of the right cliff sensor signal.
@@ -697,14 +697,14 @@ public interface IRobotCreateInterface {
     int getCliffSignalRight();
 
     /**
-     * Gets the current, in milliAmps, flowing into or out of the Create's
+     * Gets the current, in milliAmps, flowing into or out of the iRobot's
      * battery. Negative currents indicate that the current is flowing out of
      * the battery, as during normal running. Positive currents indicate that
      * the current is flowing into the battery, as during charging.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The current in mA
@@ -713,7 +713,7 @@ public interface IRobotCreateInterface {
     int getCurrent();
 
     /**
-     * Gets the distance in mm that the Create has travelled from the time
+     * Gets the distance in mm that the iRobot has travelled from the time
      * before last that the distance sensor was read to the last time the
      * distance sensor was read. This is the same as the sum of the distance
      * traveled by both wheels divided by two. Positive values indicate travel
@@ -722,8 +722,8 @@ public interface IRobotCreateInterface {
      * its minimum or maximum, which are -32768 amd 32767 respectively.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the travelled distance in mm
@@ -737,8 +737,8 @@ public interface IRobotCreateInterface {
      * 72mm and the distance between the wheels is 235mm.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the left encoder count
@@ -751,8 +751,8 @@ public interface IRobotCreateInterface {
      * is 72mm and the distance between the wheels is 235mm.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the right encoder count
@@ -760,7 +760,7 @@ public interface IRobotCreateInterface {
     int getEncoderCountRight();
 
     /**
-     * Gets the value of the IR byte received by the Create. The value is
+     * Gets the value of the IR byte received by the iRobot. The value is
      * encoded as follows:
      * <p/>
      * Remote control values:
@@ -798,8 +798,8 @@ public interface IRobotCreateInterface {
      * </ul>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return One of the values above.
@@ -808,7 +808,7 @@ public interface IRobotCreateInterface {
     int getInfraredByte();
 
     /**
-     * Gets the value of the IR byte received by the Create. The value is
+     * Gets the value of the IR byte received by the iRobot. The value is
      * encoded as follows:
      * <p/>
      * Remote control values:
@@ -846,8 +846,8 @@ public interface IRobotCreateInterface {
      * </ul>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return One of the values above.
@@ -856,7 +856,7 @@ public interface IRobotCreateInterface {
     int getInfraredByteLeft();
 
     /**
-     * Gets the value of the IR byte received by the Create. The value is
+     * Gets the value of the IR byte received by the iRobot. The value is
      * encoded as follows:
      * <p/>
      * Remote control values:
@@ -894,8 +894,8 @@ public interface IRobotCreateInterface {
      * </ul>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return One of the values above.
@@ -926,8 +926,8 @@ public interface IRobotCreateInterface {
      * is 4095.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the light bumps array
@@ -943,7 +943,7 @@ public interface IRobotCreateInterface {
     int getMotorCurrentRight();
 
     /**
-     * Gets the Create's OI mode. The returned value is encoded as follows:
+     * Gets the iRobot's OI mode. The returned value is encoded as follows:
      * <ul>
      * <li>0 - Off
      * <li>1 - Passive
@@ -952,11 +952,11 @@ public interface IRobotCreateInterface {
      * <ul>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
-     * @return The Create's OI mode.
+     * @return The iRobot's OI mode.
      * @see #readSensors(int sensorId)
      */
     int getOiMode();
@@ -966,8 +966,8 @@ public interface IRobotCreateInterface {
      * method.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The most recently requested turn radius in mm.
@@ -981,8 +981,8 @@ public interface IRobotCreateInterface {
      * driveDirect() or drive() method.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The most recently requested average wheel velocity in mm/s.
@@ -997,8 +997,8 @@ public interface IRobotCreateInterface {
      * driveDirect() or drive() method.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The most recently requested left wheel velocity in mm/s
@@ -1013,8 +1013,8 @@ public interface IRobotCreateInterface {
      * driveDirect() or drive() method.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return The most recently requested right wheel velocity in mm/s.
@@ -1028,8 +1028,8 @@ public interface IRobotCreateInterface {
      * Gets the currently selected OI song song number.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the song number
@@ -1038,11 +1038,11 @@ public interface IRobotCreateInterface {
     int getSongNumber();
 
     /**
-     * Gets the voltage of Create's battery in millivolts (mV).
+     * Gets the voltage of iRobot's battery in millivolts (mV).
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the battery voltage in mV
@@ -1064,8 +1064,8 @@ public interface IRobotCreateInterface {
      * 4095.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return the wall signal's strength
@@ -1077,8 +1077,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the left bumper.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true is the left bumper is depressed.
@@ -1090,8 +1090,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the right bumper.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true is the right bumper is depressed.
@@ -1106,8 +1106,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the front right cliff sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if a cliff has been detected
@@ -1119,8 +1119,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the left cliff sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if a cliff has been detected
@@ -1132,8 +1132,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the right cliff sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if a cliff has been detected
@@ -1145,8 +1145,8 @@ public interface IRobotCreateInterface {
      * Gets the availability of the home base charger.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the home base charger is available
@@ -1158,8 +1158,8 @@ public interface IRobotCreateInterface {
      * Gets the availability of the internal charger.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the internal charger is available
@@ -1171,8 +1171,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the left wheel overcurrent sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if too much current (> 1A) is requested.
@@ -1184,8 +1184,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the light bump.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true a light bump has occurred.
@@ -1197,8 +1197,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the Low Side Driver 2 overcurrent sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if too much current (> 1.6A) is requested.
@@ -1210,8 +1210,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the Spot button
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the Spot button is depressed.
@@ -1223,8 +1223,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the right wheel overcurrent sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if too much current (> 1A) is requested.
@@ -1237,11 +1237,11 @@ public interface IRobotCreateInterface {
      * <p/>
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
-     * @return true if the Create is playing a song.
+     * @return true if the iRobot is playing a song.
      * @see #readSensors(int sensorId)
      * @see #playSong(int)
      */
@@ -1251,8 +1251,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the virtual wall sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if virtual wall is detected.
@@ -1264,8 +1264,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the wall sensor.
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the wall is detected.
@@ -1277,8 +1277,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the left wheel sensor
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the left wheel has dropped.
@@ -1290,8 +1290,8 @@ public interface IRobotCreateInterface {
      * Gets the state of the right wheel sensor
      * <p/>
      * <b>NOTE:</b> This method returns a locally stored value previously read
-     * from the Create. It is the client's responsibility to read the sensor
-     * values from the Create prior to calling this method in order to ensure
+     * from the iRobot. It is the client's responsibility to read the sensor
+     * values from the iRobot prior to calling this method in order to ensure
      * fresh values.
      *
      * @return true if the right wheel has dropped.
@@ -1301,7 +1301,7 @@ public interface IRobotCreateInterface {
 
 
     /**
-     * This method controls the LEDs on the Create. The state of the Play and
+     * This method controls the LEDs on the iRobot. The state of the Play and
      * Advance LEDs is specified by true or false. The Power LED is specified by
      * two values: one for the color and the other for the intensity. Available
      * in modes: Safe or Full
@@ -1322,13 +1322,13 @@ public interface IRobotCreateInterface {
 
 
     /**
-     * Selects a song to play from the songs previously added to the Create
+     * Selects a song to play from the songs previously added to the iRobot
      * using one of the song() methods. This method does nothing if a song is
      * already playing. Note that the {@link #isSongPlaying() isSongPlaying()}
-     * method can be used to check whether the Create is ready to accept this
+     * method can be used to check whether the iRobot is ready to accept this
      * command. Available in modes: Safe or Full.
      *
-     * @param songNumber the number of the song the Create is to play.
+     * @param songNumber the number of the song the iRobot is to play.
      * @throws ConnectionLostException
      * @see #song(int, int[])
      * @see #song(int, int[], int, int)
@@ -1337,7 +1337,7 @@ public interface IRobotCreateInterface {
 
 
     /**
-     * Retrieves one or more sensor values from the Create and stores the values
+     * Retrieves one or more sensor values from the iRobot and stores the values
      * locally. The values can later be accessed using any of the access
      * methods. The sensors that are to be read are specified using a sensor id.
      * There are 43 different sensor Ids; see the SENSORS_* constants. Each
@@ -1357,7 +1357,7 @@ public interface IRobotCreateInterface {
     void reset() throws ConnectionLostException;
 
     /**
-     * Puts the OI into Safe mode, enabling user control of the Create. It turns
+     * Puts the OI into Safe mode, enabling user control of the iRobot. It turns
      * off all LEDs. The OI can be in Passive, Safe, or Full mode to accept this
      * command.
      *
@@ -1371,7 +1371,7 @@ public interface IRobotCreateInterface {
      * to 16 songs can be specified. Each song is associated with a song number.
      * Each song can contain up to sixteen notes. Each note is associated with a
      * note number (in the range of (31 - 127) that uses MIDI note definitions
-     * and a duration that is specified in fractions of a second. The Create
+     * and a duration that is specified in fractions of a second. The iRobot
      * considers all musical notes outside the range of (31 - 127) as rest
      * notes, and will make no sound during the duration of those notes.
      * Available in modes: Passive, Safe, or Full <br>
@@ -1389,8 +1389,8 @@ public interface IRobotCreateInterface {
      * @see #playSong(int)
      * @see #song(int, int[])
      * @see #song(int, int[], int, int)
-     * @see <a href=../../../../resources/Create%20Open%20Interface_v2.pdf>
-     * Create Open Interface_v2.pdf</a>
+     * @see <a href="http://www.irobot.com/~/media/MainSite/PDFs/About/STEM/Create/iRobot_Roomba_600_Open_Interface_Spec_0512.pdf">
+     * iRobot Create 2 Open Interface (OI)</a>
      */
     void song(int songNumber, int[] notesAndDurations)
             throws ConnectionLostException;
@@ -1400,7 +1400,7 @@ public interface IRobotCreateInterface {
      * to 16 songs can be specified. Each song is associated with a song number.
      * Each song can contain up to sixteen notes. Each note is associated with a
      * note number (in the range of (31 - 127) that uses MIDI note definitions
-     * and a duration that is specified in fractions of a second. The Create
+     * and a duration that is specified in fractions of a second. The iRobot
      * considers all musical notes outside the range of (31 - 127) as rest
      * notes, and will make no sound during the duration of those notes.
      * Available in modes: Passive, Safe, or Full <br>
@@ -1419,8 +1419,8 @@ public interface IRobotCreateInterface {
      * @throws ConnectionLostException
      * @see #playSong(int)
      * @see #song(int, int[])
-     * @see <a href=../../../../Create%20Open%20Interface_v2.pdf> Create Open
-     * Interface_v2.pdf</a>
+     * @see <a href="http://www.irobot.com/~/media/MainSite/PDFs/About/STEM/Create/iRobot_Roomba_600_Open_Interface_Spec_0512.pdf">
+     * iRobot Create 2 Open Interface (OI)</a>
      */
     void song(int songNumber, int[] notesAndDurations, int startIndex, int length)
             throws ConnectionLostException;
@@ -1444,7 +1444,7 @@ public interface IRobotCreateInterface {
             throws ConnectionLostException;
 
     /**
-     * Closes the serial connection to the Create
+     * Closes the serial connection to the iRobot
      */
     void closeConnection();
 

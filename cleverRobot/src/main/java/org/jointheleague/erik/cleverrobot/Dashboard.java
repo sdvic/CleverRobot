@@ -7,12 +7,13 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.speech.tts.TextToSpeech;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.jointheleague.erik.irobot.IRobotCreateInterface;
-import org.jointheleague.erik.irobot.SimpleIRobotCreate;
+import org.jointheleague.erik.irobot.IRobotInterface;
+import org.jointheleague.erik.irobot.SimpleIRobot;
 
 import java.util.Locale;
 
@@ -34,8 +35,8 @@ import ioio.lib.util.android.IOIOActivity;
  *
  * @author Erik Colban
  */
-public class Dashboard extends IOIOActivity implements
-        TextToSpeech.OnInitListener, SensorEventListener {
+public class Dashboard extends IOIOActivity
+        implements TextToSpeech.OnInitListener, SensorEventListener {
 
     /**
      * Text view that contains all logged messages
@@ -72,7 +73,7 @@ public class Dashboard extends IOIOActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*
-         * Since the android device is carried by the iRobot Create, we want to
+         * Since the android device is carried by the iRobot, we want to
 		 * prevent a change of orientation, which would cause the activity to
 		 * pause.
 		 */
@@ -213,39 +214,28 @@ public class Dashboard extends IOIOActivity implements
 
             public void setup(IOIO ioio) throws ConnectionLostException,
                     InterruptedException {
-                /*
-                 * When the setup() method is called the IOIO is connected.
-				 */
+                // When the setup() method is called the IOIO is connected.
                 log(getString(R.string.ioio_connected));
 
-				/*
-				 * Establish communication between the android and the iRobot
-				 * Create through the IOIO board.
-				 */
-                log(getString(R.string.wait_create));
-                IRobotCreateInterface basicRobot = new SimpleIRobotCreate(ioio);
-                log(getString(R.string.create_connected));
+                // Establish communication between the android and the iRobot
+                // through the IOIO board.
+                log(getString(R.string.wait_irobot));
+                IRobotInterface basicRobot = new SimpleIRobot(ioio);
+                log(getString(R.string.irobot_connected));
 
-				/*
-				 * Get a Pilot (built on the iRobot Create) and let it go... The
-				 * ioio_ instance is passed to the constructor in case it is
-				 * needed to establish connections to other peripherals, such as
-				 * sensors that are not part of the iRobot Create.
-				 */
+                // Get a Pilot and let it go...
+                // The ioio instance is passed to the constructor in case it is
+                // needed for establishing connections to other peripherals, such as
+                // sensors that are not part of the iRobot.
                 kalina = new Pilot(basicRobot, Dashboard.this, ioio);
                 kalina.initialize();
             }
 
             public void loop() throws ConnectionLostException, InterruptedException {
-                kalina.readSensors(SENSORS_GROUP_ID2);
-                if (kalina.isSpotButtonDown()) {
-                        dashboard.log("Shutting down... Bye!");
-                        kalina.driveDirect(0, 0);
-                        kalina.stop();
-                        kalina.closeConnection();
-                } else {
-                	kalina.loop();
-                }
+                // This thread hogs the CPU and prevents other threads from running (bad scheduler?)
+                // The following sleep is needed to allow access to other threads.
+                SystemClock.sleep(10L);
+                kalina.loop();
             }
 
             public void disconnected() {

@@ -26,13 +26,13 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int create_connected=0x7f040001;
-        public static final int hello=0x7f040002;
-        public static final int ioio_connected=0x7f040003;
-        public static final int ioio_disconnected=0x7f040004;
+        public static final int hello=0x7f040001;
+        public static final int ioio_connected=0x7f040002;
+        public static final int ioio_disconnected=0x7f040003;
+        public static final int irobot_connected=0x7f040004;
         public static final int pausing=0x7f040005;
-        public static final int wait_create=0x7f040006;
-        public static final int wait_ioio=0x7f040007;
+        public static final int wait_ioio=0x7f040006;
+        public static final int wait_irobot=0x7f040007;
         public static final int zero=0x7f040008;
     }
     public static final class style {

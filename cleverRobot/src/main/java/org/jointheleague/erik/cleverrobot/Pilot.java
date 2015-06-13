@@ -1,13 +1,16 @@
 package org.jointheleague.erik.cleverrobot;
 
-import org.jointheleague.erik.irobot.IRobotCreateAdapter;
-import org.jointheleague.erik.irobot.IRobotCreateInterface;
+import android.util.Log;
+
+import org.jointheleague.erik.irobot.IRobotAdapter;
+import org.jointheleague.erik.irobot.IRobotInterface;
 
 import ioio.lib.api.IOIO;
 import ioio.lib.api.exception.ConnectionLostException;
 
-public class Pilot extends IRobotCreateAdapter {
+public class Pilot extends IRobotAdapter {
 
+    private static final String TAG = "Pilot";
     // The following measurements are taken from the interface specification
     private static final double WHEEL_DISTANCE = 235.0; //in mm
     private static final double WHEEL_DIAMETER = 72.0; //in mm
@@ -26,8 +29,9 @@ public class Pilot extends IRobotCreateAdapter {
     private static final int TURN_SPEED = 100;
 
     private int currentCommand = 0;
+    private boolean debug = false; // Set to true to get debug messages.
 
-    public Pilot(IRobotCreateInterface iRobot, Dashboard dashboard, IOIO ioio)
+    public Pilot(IRobotInterface iRobot, Dashboard dashboard, IOIO ioio)
             throws ConnectionLostException {
         super(iRobot);
 //        sonar = new UltraSonicSensors(ioio);
@@ -38,6 +42,7 @@ public class Pilot extends IRobotCreateAdapter {
     public void initialize() throws ConnectionLostException {
         dashboard.log(dashboard.getString(R.string.hello));
         //what would you like me to do, Clever Human?
+        currentCommand = 0;
         nextCommand();
 
     }
@@ -52,11 +57,46 @@ public class Pilot extends IRobotCreateAdapter {
     /**
      * This method determines where to go next. This is a very simple Tortoise-like
      * implementation, but a more advanced implementation could take into account
-     * sensory input, maze mapping, and other into account.
+     * sensory input, maze mapping, and other.
      *
      * @throws ConnectionLostException
      */
     private void nextCommand() throws ConnectionLostException {
+        switch (currentCommand) {
+            case 0:
+                goStraight(1000);
+                break;
+            case 1:
+                turnLeft(180);
+                break;
+            case 2:
+                goStraight(1000);
+                break;
+            case 3:
+                turnRight(180);
+                break;
+            case 4:
+                shutDown();
+                break;
+            default:
+        }
+        currentCommand++;
+    }
+
+    private void shutDown() throws ConnectionLostException {
+        dashboard.log("Shutting down... Bye!");
+        stop();
+        closeConnection();
+    }
+
+    /**
+     * This method determines where to go next. This is a very simple Tortoise-like
+     * implementation, but a more advanced implementation could take into account
+     * sensory input, maze mapping, and other.
+     *
+     * @throws ConnectionLostException
+     */
+    private void nextCommandBis() throws ConnectionLostException {
         if (currentCommand < 8) {
             if (currentCommand % 2 == 0) {
                 goStraight(1000);
@@ -65,65 +105,79 @@ public class Pilot extends IRobotCreateAdapter {
             }
             currentCommand++;
         } else if (currentCommand == 8) {
-            dashboard.log("Shutting down... Bye!");
-            stop();
-            closeConnection();
+            shutDown();
         }
     }
 
     /**
-     * Moves the robot in a straight line
+     * Moves the robot in a straight line. Note: Unexpected behavior may occur if distance
+     * is larger than 14567mm.
      *
-     * @param distance the distance to go in mm
+     * @param distance the distance to go in mm. Must be &le; 14567.
      */
     private void goStraight(int distance) throws ConnectionLostException {
-        dashboard.log("Going straight");
         countsToGoWheelLeft = (int) (distance * ENCODER_COUNTS_PER_REVOLUTION
                 / (Math.PI * WHEEL_DIAMETER));
         countsToGoWheelRight = countsToGoWheelLeft;
+        if (debug) {
+            String msg = String.format("Going straight  L: %d  R: %d",
+                    countsToGoWheelLeft, countsToGoWheelRight);
+            Log.d(TAG, msg);
+            dashboard.log(msg);
+        }
         directionLeft = 1;
         directionRight = 1;
-        readSensors(SENSORS_GROUP_ID101);
-        startLeft = directionLeft * getEncoderCountLeft();
-        startRight = directionRight * getEncoderCountRight();
-        driveDirect(directionLeft * STRAIGHT_SPEED, directionRight * STRAIGHT_SPEED);
+        recordEncodersAndDrive(directionLeft * STRAIGHT_SPEED, directionRight * STRAIGHT_SPEED);
     }
 
 
     /**
-     * Turns in place rightwards.
+     * Turns in place rightwards. Note: Unexpected behavior may occur if degrees is
+     * larger than 7103 degrees (a little less than 20 revolutions).
      *
-     * @param degrees the number of degrees to turn.
+     * @param degrees the number of degrees to turn. Must be &le; 7103.
      */
     private void turnRight(int degrees) throws ConnectionLostException {
-        dashboard.log("Turning right");
         countsToGoWheelRight = (int) (degrees * WHEEL_DISTANCE * ENCODER_COUNTS_PER_REVOLUTION
                 / (360.0 * WHEEL_DIAMETER));
         countsToGoWheelLeft = countsToGoWheelRight;
         directionLeft = 1;
         directionRight = -1;
-        readSensors(SENSORS_GROUP_ID101);
-        startLeft = directionLeft * getEncoderCountLeft();
-        startRight = directionRight * getEncoderCountRight();
-        driveDirect(directionLeft * TURN_SPEED, directionRight * TURN_SPEED);
+        recordEncodersAndDrive(directionLeft * TURN_SPEED, directionRight * TURN_SPEED);
+        if (debug) {
+            String msg = String.format("Turning right  L: %d  R: %d",
+                    countsToGoWheelLeft, countsToGoWheelRight);
+            Log.d(TAG, msg);
+            dashboard.log(msg);
+        }
     }
 
     /**
-     * Turns in place leftwards.
+     * Turns in place leftwards. Note: Unexpected behavior may occur if degrees is
+     * larger than 7103 degrees (a little less than 20 revolutions).
      *
-     * @param degrees the number of degrees to turn.
+     * @param degrees the number of degrees to turn. Must be &le; 7103.
      */
     private void turnLeft(int degrees) throws ConnectionLostException {
-        dashboard.log("Turning left");
         countsToGoWheelRight = (int) (degrees * WHEEL_DISTANCE * ENCODER_COUNTS_PER_REVOLUTION
                 / (360.0 * WHEEL_DIAMETER));
         countsToGoWheelLeft = countsToGoWheelRight;
+        if (debug) {
+            String msg = String.format("Turning left  L: %d  R: %d",
+                    countsToGoWheelLeft, countsToGoWheelRight);
+            Log.d(TAG, msg);
+            dashboard.log(msg);
+        }
         directionLeft = -1;
         directionRight = 1;
+        recordEncodersAndDrive(directionLeft * TURN_SPEED, directionRight * TURN_SPEED);
+    }
+
+    private void recordEncodersAndDrive(int leftVelocity, int rightVelocity) throws ConnectionLostException {
         readSensors(SENSORS_GROUP_ID101);
-        startLeft = directionLeft * getEncoderCountLeft();
-        startRight = directionRight * getEncoderCountRight();
-        driveDirect(directionLeft * TURN_SPEED, directionRight * TURN_SPEED);
+        startLeft = getEncoderCountLeft();
+        startRight = getEncoderCountRight();
+        driveDirect(leftVelocity, rightVelocity);
     }
 
 
@@ -135,15 +189,46 @@ public class Pilot extends IRobotCreateAdapter {
      */
     private boolean checkDone() throws ConnectionLostException {
         readSensors(SENSORS_GROUP_ID101);
-        int countLeft = directionLeft * getEncoderCountLeft();
-        int countRight = directionRight * getEncoderCountRight();
+        int countLeft = getEncoderCountLeft();
+        int countRight = getEncoderCountRight();
         boolean done = false;
-        if ((countLeft - startLeft & 0xFFFF) > countsToGoWheelLeft
-                || (countRight - startRight & 0xFFFF) > countsToGoWheelRight) {
+        int doneLeft = (directionLeft * (countLeft - startLeft)) & 0xFFFF;
+        int doneRight = (directionRight * (countRight - startRight)) & 0xFFFF;
+        if (debug) {
+            String msg = String.format("L: %d  R: %d  azimuth: %.2f",
+                    doneLeft, doneRight, dashboard.getAzimuth());
+            dashboard.log(msg);
+            Log.d(TAG, msg);
+        }
+        if (countsToGoWheelLeft <= doneLeft && doneLeft < 0x7FFF ||
+                countsToGoWheelRight <= doneRight && doneRight < 0x7FFF) {
             driveDirect(0, 0);
+            waitForCompleteStop();
             done = true;
         }
         return done;
+    }
+
+    private void waitForCompleteStop() throws ConnectionLostException {
+        boolean done = false;
+        int prevCountLeft = -1;
+        int prevCountRight = -1;
+        while (!done) {
+            readSensors(SENSORS_GROUP_ID101);
+            int countLeft = getEncoderCountLeft();
+            int countRight = getEncoderCountRight();
+            if (debug) {
+                String msg = String.format("Stopping  L: %d  R: %d", countLeft, countRight);
+                Log.d(TAG, msg);
+                dashboard.log(msg);
+            }
+            if (prevCountLeft == countLeft && prevCountRight == countRight) {
+                done = true;
+            } else {
+                prevCountLeft = countLeft;
+                prevCountRight = countRight;
+            }
+        }
     }
 
 

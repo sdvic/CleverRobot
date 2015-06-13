@@ -23,12 +23,6 @@ MERGED from com.android.support:support-v4:22.1.1:20:5
 		ADDED from AndroidManifest.xml:5:15
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-uses-permission#android.permission.INTERNET
-ADDED from AndroidManifest.xml:6:5
-MERGED from CleverRobot:iOIOiRobot2:unspecified:7:5
-MERGED from CleverRobot:iOIOLib:unspecified:7:5
-	android:name
-		ADDED from AndroidManifest.xml:6:22
 application
 ADDED from AndroidManifest.xml:8:5
 MERGED from com.android.support:support-v4:22.1.1:22:5
@@ -52,6 +46,11 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:12:17
 	android:name
 		ADDED from AndroidManifest.xml:12:27
+uses-permission#android.permission.INTERNET
+ADDED from CleverRobot:iOIOiRobot2:unspecified:7:5
+MERGED from CleverRobot:iOIOLib:unspecified:7:5
+	android:name
+		ADDED from CleverRobot:iOIOiRobot2:unspecified:7:22
 android:uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 IMPLIED from AndroidManifest.xml:2:1 reason: org.jointheleague.erik.irobot has a targetSdkVersion < 4
 android:uses-permission#android.permission.READ_PHONE_STATE
