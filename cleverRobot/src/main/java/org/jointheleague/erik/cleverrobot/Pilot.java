@@ -29,7 +29,7 @@ public class Pilot extends IRobotAdapter {
     private static final int TURN_SPEED = 100;
 
     private int currentCommand = 0;
-    private boolean debug = false; // Set to true to get debug messages.
+    private final boolean debug = false; // Set to true to get debug messages.
 
     public Pilot(IRobotInterface iRobot, Dashboard dashboard, IOIO ioio)
             throws ConnectionLostException {

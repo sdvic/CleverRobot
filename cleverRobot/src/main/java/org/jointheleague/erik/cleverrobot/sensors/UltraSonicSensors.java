@@ -27,12 +27,12 @@ public class UltraSonicSensors
 	private static final int LEFT_STROBE_ULTRASONIC_OUTPUT_PIN = 15;
 	private static final int FRONT_STROBE_ULTRASONIC_OUTPUT_PIN = 16;
 	private static final int RIGHT_STROBE_ULTRASONIC_OUTPUT_PIN = 17;
-	private DigitalOutput leftStrobe;
-	private DigitalOutput frontStrobe;
-	private DigitalOutput rightStrobe;
-	private volatile int leftDistance;
-	private volatile int frontDistance;
-	private volatile int rightDistance;
+	private DigitalOutput strobeLeft;
+	private DigitalOutput strobeFront;
+	private DigitalOutput strobeRight;
+	private volatile int distanceLeft;
+	private volatile int distanceFront;
+	private volatile int distanceRight;
 	private IOIO ioio;
 
 	/**
@@ -43,23 +43,23 @@ public class UltraSonicSensors
 	public UltraSonicSensors(IOIO ioio) throws ConnectionLostException
 	{
 		this.ioio = ioio;
-		this.leftStrobe = ioio.openDigitalOutput(LEFT_STROBE_ULTRASONIC_OUTPUT_PIN);
-		this.rightStrobe = ioio.openDigitalOutput(RIGHT_STROBE_ULTRASONIC_OUTPUT_PIN);
-		this.frontStrobe = ioio.openDigitalOutput(FRONT_STROBE_ULTRASONIC_OUTPUT_PIN);
+		this.strobeLeft = ioio.openDigitalOutput(LEFT_STROBE_ULTRASONIC_OUTPUT_PIN);
+		this.strobeRight = ioio.openDigitalOutput(RIGHT_STROBE_ULTRASONIC_OUTPUT_PIN);
+		this.strobeFront = ioio.openDigitalOutput(FRONT_STROBE_ULTRASONIC_OUTPUT_PIN);
 	}
 
 	/**
 	 * Makes a reading of the ultrasonic sensors and stores the results locally.
-	 * To access these readings, use {@link #getLeftDistance()},
-	 * {@link #getFrontDistance()}, and {@link #getRightDistance()}.
+	 * To access these readings, use {@link #getDistanceLeft()},
+	 * {@link #getDistanceFront()}, and {@link #getDistanceRight()}.
 	 * @throws ConnectionLostException
 	 * @throws InterruptedException
 	 */
 	public void read() throws ConnectionLostException, InterruptedException
 	{
-		leftDistance = read(leftStrobe, LEFT_ULTRASONIC_INPUT_PIN);
-		frontDistance = read(frontStrobe, FRONT_ULTRASONIC_INPUT_PIN);
-		rightDistance = read(rightStrobe, RIGHT_ULTRASONIC_INPUT_PIN);
+		distanceLeft = read(strobeLeft, LEFT_ULTRASONIC_INPUT_PIN);
+		distanceFront = read(strobeFront, FRONT_ULTRASONIC_INPUT_PIN);
+		distanceRight = read(strobeRight, RIGHT_ULTRASONIC_INPUT_PIN);
 	}
 
 	private int read(DigitalOutput strobe, int inputPin) throws ConnectionLostException, InterruptedException
@@ -75,25 +75,25 @@ public class UltraSonicSensors
 		return distance;
 	}
 
-	public int getLeftDistance()
+	public int getDistanceLeft()
 	{
-		return leftDistance;
+		return distanceLeft;
 	}
 
-	public int getFrontDistance()
+	public int getDistanceFront()
 	{
-		return frontDistance;
+		return distanceFront;
 	}
 
-	public int getRightDistance()
+	public int getDistanceRight()
 	{
-		return rightDistance;
+		return distanceRight;
 	}
 
 	public void closeConnection()
 	{
-		leftStrobe.close();
-		frontStrobe.close();
-		rightStrobe.close();
+		strobeLeft.close();
+		strobeFront.close();
+		strobeRight.close();
 	}
 }
