@@ -30,7 +30,7 @@ public class Pilot extends IRobotAdapter {
     private static final int TURN_SPEED = 100;
 
     private int currentCommand = 0;
-    private final boolean debug = false; // Set to true to get debug messages.
+    private final boolean debug = true; // Set to true to get debug messages.
 
     public Pilot(IRobotInterface iRobot, Dashboard dashboard, IOIO ioio)
             throws ConnectionLostException {
@@ -43,6 +43,7 @@ public class Pilot extends IRobotAdapter {
     /* This method is executed when the robot first starts up. */
     public void initialize() throws ConnectionLostException {
         //what would you like me to do, Clever Human?
+        dashboard.log("Initializing...");
         currentCommand = 0;
         nextCommand();
 
@@ -63,15 +64,16 @@ public class Pilot extends IRobotAdapter {
      * @throws ConnectionLostException
      */
     private void nextCommand() throws ConnectionLostException {
-        try {
-            sonar.read();
-            int front = sonar.getDistanceFront();
-            if ( front < 50 ) {
-                currentCommand = 4; // shutdown if distance to object in front is less than 5 cm
-            }
-        } catch (InterruptedException e) {
-            dashboard.log(e.getMessage());
-        }
+//        try {
+//            sonar.read();
+//            int front = sonar.getDistanceFront();
+//            if ( front < 50 ) {
+//                currentCommand = 4; // shutdown if distance to object in front is less than 5 cm
+//            }
+//        } catch (InterruptedException e) {
+//            dashboard.log(e.getMessage());
+//        }
+        dashboard.log("currentCommand = " + currentCommand);
         switch (currentCommand) {
             case 0:
                 goStraight(1000);
