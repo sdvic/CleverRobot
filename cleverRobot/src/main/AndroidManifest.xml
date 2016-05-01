@@ -2,25 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="1"
-      android:versionName="1.0" package="org.jointheleague.erik.cleverrobot"
-    >
+    android:versionName="1.0" package="org.jointheleague.erik.cleverrobot">
 
-    <uses-sdk tools:overrideLibrary="com.google.android.gms" />
-    <!--android:minSdkVersion="8" />-->
-    <!--<uses-permission android:name="android.permission.INTERNET"></uses-permission>-->
-
-    <application android:icon="@drawable/ic_launcher_irobot" android:label="@string/app_name">
+    <application android:icon="@drawable/ic_launcher_irobot" android:label="@string/app_name"
+                 tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:label="@string/app_name" android:name="org.jointheleague.erik.cleverrobot.Dashboard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
     </application>
 </manifest>

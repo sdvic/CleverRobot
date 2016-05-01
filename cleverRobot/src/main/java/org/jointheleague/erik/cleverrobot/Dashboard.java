@@ -6,16 +6,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.speech.tts.TextToSpeech;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.jointheleague.erik.irobot.IRobotInterface;
 import org.jointheleague.erik.irobot.SimpleIRobot;
@@ -73,11 +68,6 @@ public class Dashboard extends IOIOActivity
     private double azimuth;
     private double pitch;
     private double roll;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,9 +81,9 @@ public class Dashboard extends IOIOActivity
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.main);
 
-        Intent checkIntent = new Intent();
-        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
+        // Installing TTS data doesn't work without google account on phone
+        // and even with it, doesn't seem to work on HTC desire
+        // checkTextToSpeachAvailability();
 
         // Compass stuff
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -112,10 +102,12 @@ public class Dashboard extends IOIOActivity
         mText = (TextView) findViewById(R.id.text);
         scroller = (ScrollView) findViewById(R.id.scroller);
         log(getString(R.string.wait_ioio));
+    }
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    private void checkTextToSpeachAvailability() {
+        Intent checkIntent = new Intent();
+        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
     }
 
     @Override
@@ -130,7 +122,6 @@ public class Dashboard extends IOIOActivity
 
     @Override
     protected void onResume() {
-
         sensorManager.registerListener(this, sensorAccelerometer,
                 SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, sensorMagneticField,
@@ -274,45 +265,5 @@ public class Dashboard extends IOIOActivity
                 scroller.smoothScrollTo(0, mText.getBottom());
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Dashboard Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://org.jointheleague.erik.cleverrobot/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Dashboard Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://org.jointheleague.erik.cleverrobot/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }
