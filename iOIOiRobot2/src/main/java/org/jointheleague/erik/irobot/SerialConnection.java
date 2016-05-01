@@ -12,9 +12,7 @@ import java.io.OutputStream;
 /**
  * This class represents the communication channel between the IOIO board and
  * the iRobot. At most one instance of this class may be instantiated.
- * Use the
- * {@link #getInstance(IOIO, boolean) getInsatnce(IOIO ioio, boolean debug)}
- * method to get that instance.
+ * Use the {@link #getInstance(IOIO, boolean) } method to get that instance.
  *
  */
 public final class SerialConnection {

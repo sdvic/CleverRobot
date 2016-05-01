@@ -2,6 +2,7 @@ package org.jointheleague.erik.cleverrobot;
 
 import android.util.Log;
 
+import org.jointheleague.erik.cleverrobot.sensors.UltraSonicSensors;
 import org.jointheleague.erik.irobot.IRobotAdapter;
 import org.jointheleague.erik.irobot.IRobotInterface;
 
@@ -17,7 +18,7 @@ public class Pilot extends IRobotAdapter {
     private static final double ENCODER_COUNTS_PER_REVOLUTION = 508.8;
 
     private final Dashboard dashboard;
-//    public UltraSonicSensors sonar;
+    public UltraSonicSensors sonar;
 
     private int startLeft;
     private int startRight;
@@ -29,19 +30,20 @@ public class Pilot extends IRobotAdapter {
     private static final int TURN_SPEED = 100;
 
     private int currentCommand = 0;
-    private boolean debug = false; // Set to true to get debug messages.
+    private final boolean debug = true; // Set to true to get debug messages.
 
     public Pilot(IRobotInterface iRobot, Dashboard dashboard, IOIO ioio)
             throws ConnectionLostException {
         super(iRobot);
-//        sonar = new UltraSonicSensors(ioio);
+        sonar = new UltraSonicSensors(ioio);
         this.dashboard = dashboard;
+        dashboard.log(dashboard.getString(R.string.hello));
     }
 
     /* This method is executed when the robot first starts up. */
     public void initialize() throws ConnectionLostException {
-        dashboard.log(dashboard.getString(R.string.hello));
         //what would you like me to do, Clever Human?
+        dashboard.log("Initializing...");
         currentCommand = 0;
         nextCommand();
 
@@ -62,6 +64,16 @@ public class Pilot extends IRobotAdapter {
      * @throws ConnectionLostException
      */
     private void nextCommand() throws ConnectionLostException {
+//        try {
+//            sonar.read();
+//            int front = sonar.getDistanceFront();
+//            if ( front < 50 ) {
+//                currentCommand = 4; // shutdown if distance to object in front is less than 5 cm
+//            }
+//        } catch (InterruptedException e) {
+//            dashboard.log(e.getMessage());
+//        }
+        dashboard.log("currentCommand = " + currentCommand);
         switch (currentCommand) {
             case 0:
                 goStraight(1000);
