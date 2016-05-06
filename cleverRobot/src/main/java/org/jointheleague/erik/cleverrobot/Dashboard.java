@@ -22,19 +22,13 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
 
-/**
- * This is the main activity of the iARoC 2015 application.
- * <p/>
- * <p/>
- * This class assumes that there are 3 ultrasonic sensors attached to the
- * iRobot. An instance of the Dashboard class will display the readings of these
- * three sensors.
- * <p/>
- * <p/>
+/***********************************************************************
+ * This is the main activity for the iRobot Create 2 Roomba
+ * modified with the League IOIO interface board #4700-0003
  * There should be no need to modify this class. Modify Pilot instead.
- *
+ * rev 160506A by Stanley Kurdziel...removed TTS Android code
  * @author Erik Colban
- */
+ ************************************************************************/
 public class Dashboard extends IOIOActivity
         implements TextToSpeech.OnInitListener, SensorEventListener {
 
