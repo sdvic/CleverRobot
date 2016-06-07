@@ -27,11 +27,11 @@ import ioio.lib.util.android.IOIOActivity;
  * modified with the League IOIO interface board #4700-0003
  * There should be no need to modify this class. Modify Pilot instead.
  * rev 160506A by Stanley Kurdziel...removed TTS Android code
+ * rev 160606A by Vic...added blinking light
  * @author Erik Colban
  ************************************************************************/
 public class Dashboard extends IOIOActivity
         implements TextToSpeech.OnInitListener, SensorEventListener {
-
     /**
      * Text view that contains all logged messages
      */
@@ -41,21 +41,15 @@ public class Dashboard extends IOIOActivity
      * A Pilot instance
      */
     private Pilot kalina;
-    /**
-     * TTS stuff
-     */
     protected static final int MY_DATA_CHECK_CODE = 33;
-    private TextToSpeech mTts;
     /**
      * Compass stuff
      */
     SensorManager sensorManager;
     private Sensor sensorAccelerometer;
     private Sensor sensorMagneticField;
-
     private float[] valuesAccelerometer;
     private float[] valuesMagneticField;
-
     private float[] matrixR;
     private float[] matrixI;
     private float[] matrixValues;
@@ -74,34 +68,21 @@ public class Dashboard extends IOIOActivity
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.main);
-
-        // Installing TTS data doesn't work without google account on phone
-        // and even with it, doesn't seem to work on HTC desire
-        // checkTextToSpeachAvailability();
-
         // Compass stuff
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorAccelerometer = sensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorMagneticField = sensorManager
                 .getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
         valuesAccelerometer = new float[3];
         valuesMagneticField = new float[3];
 
         matrixR = new float[9];
         matrixI = new float[9];
         matrixValues = new float[3];
-
         mText = (TextView) findViewById(R.id.text);
         scroller = (ScrollView) findViewById(R.id.scroller);
         log(getString(R.string.wait_ioio));
-    }
-
-    private void checkTextToSpeachAvailability() {
-        Intent checkIntent = new Intent();
-        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
     }
 
     @Override
@@ -126,32 +107,15 @@ public class Dashboard extends IOIOActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MY_DATA_CHECK_CODE) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                // success, create the TTS instance
-                mTts = new TextToSpeech(this, this);
-            } else {
-                // missing data, install it
-                Intent installIntent = new Intent();
-                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installIntent);
-            }
         }
     }
 
     public void onInit(int arg0) {
     }
 
-    public void speak(String stuffToSay) {
-        mTts.setLanguage(Locale.US);
-        if (!mTts.isSpeaking()) {
-            mTts.speak(stuffToSay, TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
-
     @Override
     public void onAccuracyChanged(Sensor arg0, int arg1) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -176,7 +140,6 @@ public class Dashboard extends IOIOActivity
                 roll = Math.toDegrees(matrixValues[2]);
             }
         }
-
     }
 
     /**
@@ -190,7 +153,6 @@ public class Dashboard extends IOIOActivity
 
     /**
      * Gets the pitch
-     *
      * @return the pitch
      */
     public synchronized double getPitch() {
@@ -199,7 +161,6 @@ public class Dashboard extends IOIOActivity
 
     /**
      * Gets the roll
-     *
      * @return the roll
      */
     public synchronized double getRoll() {
